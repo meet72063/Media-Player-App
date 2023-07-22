@@ -18,7 +18,7 @@ const {
 } = require("../Controllers/user");
 
 router.route("/signup").post(creatUser);
-router.route("/login").get(logIn);
+router.route("/login").post(logIn);
 router.route("/delete").delete(userAuth, Delete);
 router.route("/update").patch(userAuth, Update);
 router.route("/getUser").get(userAuth, getUser);

@@ -17,23 +17,26 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type:String,
-        require:true
+        
     },
-    Date:{
+    date:{
         type:String,
-        required:true
+       
     },
     month:{
         type:String,
-        required:true
+        
     },
     year:{
         type:String,
-        required:true
+        
     },
     gender:{
         type:String,
-        requied:true
+       
+    },
+    nickname:{
+      type:String,
     },
     likedSongs:{
         type:Array,
@@ -46,7 +49,8 @@ const userSchema = mongoose.Schema({
     isAdmin:{
         type:Boolean,
         default:false
-    }
+    },
+    
 })
 
 
@@ -72,14 +76,15 @@ const validation = (user)=>{
     const Schema = joi.object({
         name:joi.string().required(),
         password:joi.string().min(6).required(),
-        month:joi.string().required(),
-        Date:joi.required(),
-        year:joi.string().required(),
-        gender:joi.string().valid('male','female','non-binary').required(),
+        month:joi.string().allow(),
+        Date:joi.string().allow(),
+        year:joi.string().allow(),
+        gender:joi.string().valid('Male','Female','Non-binary','Other','').allow(),
         email:joi.string().email().required(),
         isAdmin:joi.allow(),
-        likedSongs:joi.array(),
-        Playlists:joi.array()
+        likedSongs:joi.array().allow(),
+        Playlists:joi.array().allow(),
+        nickname:joi.string().allow
     
     
     })

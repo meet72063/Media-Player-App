@@ -12,7 +12,9 @@ require('express-async-errors')
 const creatUser = async(req,res)=>{
   const {error} = validation(req.body)
  if(error){
-  res.status(StatusCodes.BAD_REQUEST).json({messege:error.details[0].message})
+  let err = error.details[0].message
+  err.replaceAll('\\')
+  res.status(StatusCodes.BAD_REQUEST).json({messege:err.toUpperCase()})
   return
 }
  
@@ -26,22 +28,26 @@ const logIn = async(req,res)=>{
   const {password,email} =  req.body
   if(!email||!password){
     res.status(StatusCodes.BAD_REQUEST).json({error:'please provide creadentials'})
+    return
   }
 
   const user = await User.findOne({email:email})
   
   if(!user){
     res.status(StatusCodes.BAD_REQUEST).json({error:'user not found '})
+    return
   }
   
   //compare password
  const isVarified = await user.comparePassword(password)
  if(!isVarified){
      res.status(StatusCodes.BAD_REQUEST).json({error:'incorrect password'})
+     return
  }
  
+delete user._doc.password
  const token = user.generateToken()
-  res.status(StatusCodes.OK).json({status:'successful',token})
+  res.status(StatusCodes.OK).json({status:'successful',token,data:user._doc})
 
 }
 
@@ -56,6 +62,7 @@ const Delete = async (req,res)=>{
  const isVarified = await user.comparePassword(password)
  if(!isVarified){
      res.status(StatusCodes.BAD_REQUEST).json({error:'incorrect password'})
+     return
  }
 
   const user = await User.findByIdAndDelete({_id:userId})
@@ -77,7 +84,7 @@ const Update = async (req,res)=>{
    }
 
 
- const user= await User.findByIdAndUpdate({_id:userId},req.body).select('-password')
+ const user= await User.findByIdAndUpdate({_id:userId},req.body,{new:true}).select('-password')
   res.status(StatusCodes.OK).json({status:"success",message:'user has been updated successfully',data:user})
 }
 
@@ -124,6 +131,7 @@ const newPlayList = async (req,res)=>{
   const {error} = playlistValidaion(req.body)
   if(error){
     res.status(StatusCodes.BAD_REQUEST).json({error:error.details[0].message})
+    return
   }
 
   const {body,user:{userId}}=req
@@ -161,6 +169,7 @@ const getPlaylist = async (req,res)=>{
   const playlist= await PlayList.findOne({_id:playlistId,user:userId})
   if(playlist===null){
     res.status(StatusCodes.NOT_FOUND).json({error:'No playlist with this id'})
+    return
   }
   res.status(StatusCodes.OK).json({playlist})
 }

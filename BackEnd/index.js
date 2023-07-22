@@ -1,5 +1,5 @@
 const express = require('express')
-// const cors = require('cors')
+const cors = require('cors')
 const connect = require('./DB/connect')
 const userRouter = require('./routes/userRoute')
 const adminRouter = require('./routes/adminRoutes')
@@ -10,12 +10,9 @@ require('dotenv').config()
 const app = express()
 
 
-// app.use(cors)
-
-
-
-
 app.use(express.json())
+app.use(cors())
+
 
 //routes
 app.use('/',userRouter)
