@@ -14,22 +14,24 @@ const {
   editPlaylist,
   getPlaylist,
   getAllPlaylist,
-  addingSongs
+  addingSongs,
+  getAllArtists
 } = require("../Controllers/user");
 
-router.route("/signup").post(creatUser);
+router.route("/signUp").post(creatUser);
 router.route("/login").post(logIn);
 router.route("/delete").delete(userAuth, Delete);
 router.route("/update").patch(userAuth, Update);
 router.route("/getUser").get(userAuth, getUser);
 router.route("/likedSong/:songId").patch(userAuth, updateLikedSongs);
-router.route("/getAllSongs").get(userAuth, getSongs);
+router.route("/getAllSongs").get( getSongs);
 router.route("/newplaylist").post(userAuth, newPlayList);
 router.route("/deleteplaylist/:playlistId").delete(userAuth, deltePlaylist);
 router.route("/editplaylist/:playlistId").patch(userAuth, editPlaylist);
 router.route("/getplaylist/:playlistId").get(userAuth, getPlaylist);
 router.route("/getallplaylists").get(userAuth, getAllPlaylist);
 router.route("/addsongtoplaylist/:playlistId").post(userAuth, addingSongs);
+router.route("/getAllArtists").get(getAllArtists)
 
 
 

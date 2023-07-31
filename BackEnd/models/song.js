@@ -14,20 +14,20 @@ const songSchema = mongoose.Schema({
         type:String,
         default:'unKnown'
     },
-    duration:{
-        type:Number,
+    url:{
+        type:String,
         required:true
     }
 
-})
+},{timestamps:true})
 
 
 const songValidate = (song)=>{
   const Schema = joi.object({
     name:joi.string().required(),
-    img:joi.string(),
-    duration:joi.number(),
-    artist:joi.string()
+    img:joi.string().required(),
+    url:joi.string().required(),
+    artist:joi.string().required()
   })
 
   return Schema.validate(song)

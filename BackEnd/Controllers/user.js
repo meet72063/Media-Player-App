@@ -3,6 +3,7 @@ const {StatusCodes} = require('http-status-codes')
 const bcrypt = require('bcrypt')
 const { Song } = require('../models/song')
 const {PlayList,playlistValidaion} = require('../models/playlist')
+const {Artist} = require('../models/Artist')
 require('express-async-errors')
 
 
@@ -72,8 +73,8 @@ const Delete = async (req,res)=>{
 
 //Update user 
 const Update = async (req,res)=>{
-   const { body:{password},user:{userId}} = req
-
+   const { body:{password,email},user:{userId}} = req
+   
    //hashing password to update
    if(password){
     const salt = await bcrypt.genSalt(10)
@@ -100,7 +101,7 @@ const getUser = async (req,res)=>{
 //getting all songs 
 
 const getSongs = async (req,res)=>{
-  const  songs = await Song.find({})
+  const  songs = await Song.find({}).sort({"created_at": 1}) 
   res.status(StatusCodes.OK).json({songs})
 }
 
@@ -212,6 +213,12 @@ res.status(StatusCodes.OK).json({message:`song has been removed from ${name}`})
 
 }
 
+//getting all the aritsts 
+
+const getAllArtists = async(req,res)=>{
+  const response = await Artist.find({}).sort({"created_at": 1})
+  res.status(StatusCodes.OK).json({artists:response,message:"successful"})
+}
 
 
 module.exports = 
@@ -226,5 +233,6 @@ module.exports =
   editPlaylist,
   getPlaylist,
   getAllPlaylist,
-  addingSongs
+  addingSongs,
+  getAllArtists
 }

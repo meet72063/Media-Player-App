@@ -1,7 +1,8 @@
-import {
-  Card,
-  Typography,
-} from "@material-tailwind/react";
+// import {
+//   Card,
+//   h2,
+//   Input
+// } from "@material-tailwind/react";
 import axios from "axios";
 import {storeUserDetails} from '../../Features/userDetailSlice'
 import { useState } from "react";
@@ -9,21 +10,23 @@ import {useNavigate,NavLink} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import Error from '../SharedComponents/Error'
 import {saveData} from '../../localStorage'
+import { years } from "../Profile/years"; 
 
 export default function Form() {
-  const [additonalDetails, setAdditionalDetails] = useState({ nickname: '',  month: '', year: '', gender: '' })
+  const [additonalDetails, setAdditionalDetails] = useState({ nickname: '',  month: '', year: '', gender: '',date:'' })
   const [error,setError] = useState(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
-  const dateChangehandler = (e) => {
-    setError(null)
-    let value = e.target.value
-    let dateArray = value.split('-')
-    
-    setAdditionalDetails({ ...additonalDetails, date: dateArray[2], month: dateArray[1], year: dateArray[0] })
-
-  }
+  
+  const  handleNumber = (e)=>{
+    if(Number(e.target.value)>=0){
+        setError(null)
+        setAdditionalDetails({...additonalDetails,[e.target.name]:e.target.value})
+        return
+    }
+    setError(`please enter valide ${e.target.name}`)
+}
 
   const genderHandler = (e) => {
     setError(null)
@@ -32,6 +35,17 @@ export default function Form() {
 
   const handleSubmit =async (e)=>{
     e.preventDefault()
+    
+   if(!(0<Number(additonalDetails.date)&& Number(additonalDetails.date)<=31)){
+    setError('please enter valid Date')
+    return
+   }
+
+
+if(additonalDetails.year.length!==4||(additonalDetails.year[0]!=1&&additonalDetails.year[0]!=2)) { 
+   setError('please enter valid Year')
+   return
+}
     
   try {
     const token = localStorage.getItem("token")
@@ -49,7 +63,7 @@ export default function Form() {
    saveData(res.data.data)
    navigate('/profile')
   } catch (error) {
-      setError(error.response.data||error.response.message)
+      setError(error?.response?.data||error?.response?.message)
   }
     
   }
@@ -57,13 +71,13 @@ export default function Form() {
 
 
   return (
-    <Card color="transparent" shadow={false}>
+    <div color="transparent" >
     {error? <Error error={error} />:''}
 
       <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-        <Typography color="gray" className="mb-2  font-bold">
+        <h2 color="gray" className="mb-2  font-bold">
           What should we call you?
-        </Typography>
+        </h2>
         <div className="mb-2 flex flex-col">
           <input className="ml-2 px-4 mt-1 py-2 border rounded" type="text" placeholder="Name" value={additonalDetails.nickname} onChange={(e) => {
             setAdditionalDetails({ ...additonalDetails, nickname: e.target.value })
@@ -72,25 +86,53 @@ export default function Form() {
           <label className="pl-7 text-sm p-1">This appears on your profile</label>
         </div>
         <div className="mt-5">
-          <Typography color="gray" className="mb-2  font-bold">
+          <h2 color="gray" className="mb-2  font-bold">
             What's your date of birth?
-          </Typography>
+          </h2>          
           <div className="flex space-x-2 ">
             <div>
+   
+               <div className='flex space-x-2 '>
+                        <input
+                            type="number"
+                            placeholder='YYYY'
+                            id='DOB'
+                            name='year'
+                            onChange={handleNumber}
+                            value={additonalDetails.year}
+                            className=' bg-white pl-5 border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white' />
 
-              <div className="relative max-w-lg">
-                <input   type="date" className="w-60 bg-gray-50 border border-gray-300 text-base  rounded-lg focus:ring-blue-500 focus:border-blue-500 block  pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" onChange={dateChangehandler} />
-              </div>
+
+                        <select  name='month' onChange={(e)=>{setAdditionalDetails({...additonalDetails,month:e.target.value})}} defaultValue={additonalDetails.month} className="bg-white border mb-1  pl-6 pb-2 h-10 border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
+                            <option value=''></option>
+                            {years.map((item, index) => {
+                                return <option key={index} className='capitalize' value={item}>{item}</option>
+
+                            })}
+                        </select>
+
+                        <input
+                            type="number"
+                            placeholder='DD'
+                            id='Day'
+                            name='date'
+                            onChange={handleNumber}
+                            className=' bg-white border border-gray-300 pl- 5text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white'
+                            value={additonalDetails.date} />
+
+
+                    </div>
+
 
 
               {/* gender Radio Buttons */}
 
               <div className="mt-6">
 
-                <Typography color="gray" className="mb-2  font-bold">
+                <h2 color="gray" className="mb-2  font-bold">
                   What's is your gender?
-                </Typography>
-                <div className="flex space-x-3">
+                </h2>
+                <div className="flex space-x-3 ml-2">
 
 
                   <label htmlFor="Male">Male</label>
@@ -102,7 +144,7 @@ export default function Form() {
                   <label htmlFor="Other">Other</label>
                   <input type="radio" id="Other" name="gender" onChange={genderHandler} />
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 ml-2">
                   <input type="radio" id="" name="gender" onChange={genderHandler} checked={!(additonalDetails.gender)} />
                   <span className="pl-2">Prefer not to say</span>
 
@@ -116,20 +158,13 @@ export default function Form() {
         </div>
 
         <div className="mt-5 flex justify-center space-x-6"> 
-          <button className="rounded-full bg-green-500 px-12 py-3 text-base font-bold text-black transition duration-200 hover:bg-green-600 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 " 
+          <button className="rounded-full bg-green-500 mt-2 px-12 py-3 text-base font-bold text-black transition duration-200 hover:bg-green-600 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 " 
           type="submit" onClick={handleSubmit}>
           Sign Up
         </button>
-        <Typography color="gray" className="mt-2 text-center font-normal">
-            <NavLink
-              to='/home'
-              className="font-medium ml-4 text-lg text-blue-500 transition-colors hover:text-orange-300 "
-            >
-              skip for now 
-            </NavLink>
-          </Typography>
+        
         </div>
       </form>
-    </Card>
+    </div>
   );
 }

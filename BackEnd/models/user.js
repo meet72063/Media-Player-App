@@ -46,12 +46,16 @@ const userSchema = mongoose.Schema({
         type:Array,
         default:[]
     },
+    country:{
+      type:String,
+      default:'India'
+    },
     isAdmin:{
         type:Boolean,
         default:false
     },
     
-})
+},{timeStamp:true})
 
 
 userSchema.methods.generateToken = function(){
@@ -84,7 +88,8 @@ const validation = (user)=>{
         isAdmin:joi.allow(),
         likedSongs:joi.array().allow(),
         Playlists:joi.array().allow(),
-        nickname:joi.string().allow
+        nickname:joi.string().allow,
+        country:joi.string().allow()
     
     
     })

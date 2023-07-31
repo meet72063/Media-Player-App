@@ -1,9 +1,4 @@
-import {
-    Card,
-    Input,
-    Button,
-    Typography,
-  } from "@material-tailwind/react";
+
 import { useState } from "react";
 import axios from 'axios'
 import Error from "../SharedComponents/Error";
@@ -30,31 +25,38 @@ import {saveData} from '../../localStorage'
       localStorage.setItem("token",response.data.token)
       saveData(response.data.data)
       
-      navigate('/')
+      navigate('/home')
       
     } catch (error) {
-      setError(error.response.data.error||error.response.data)
+      setError(error.response?.data?.error||error.response?.data||'something went wrong')
     }
     }
     
 
     return (
-      <Card color="transparent" className="text-white" shadow={false} >
-        <Typography variant="h4" color="blue-gray">
-          Sign in
-        </Typography>
+      <div color="transparent" className="text-white"  >
+        <h2 variant="h4" color="blue-gray">
+          Enter Details 
+        </h2>
         {error?<Error error={error} />:''}
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-          <div className="mb-4 flex flex-col gap-6 text-white">
-            <Input className="pl-1 font-extrabold tracking-widest rounded-sm" color="white"  label="Email" name="email" value={userDetails.email} onChange={handleChange} />
-            <Input className="pl-1 font-extrabold tracking-widest rounded-sm" color="white" type="password"  label="Password" name="password" value={userDetails.password} onChange={handleChange}/>
+          <div className="mb-4 flex flex-col gap-6 text-black">
+            <div className="flex flex-col space-y-1">
+              <label htmlFor="email" className="text-white">Email</label>
+              <input id="email" className="pl-2 font-extrabold tracking-widest rounded-sm w-56 "  color="white"  label="Email" name="email" value={userDetails.email} onChange={handleChange} />
+            </div>
+            <div className="flex flex-col space-y-1">
+               <label htmlFor="password" className="text-white">Password</label>
+              <input id="password" className="pl-2 w-56 font-extrabold tracking-widest rounded-sm" color="white" type="password"  label="Password" name="password" value={userDetails.password} onChange={handleChange}/>
+
+            </div>
           </div>
-          <Button className="mt-6  text-blue-500 transition-colors hover:text-blue-700" fullWidth type="submit" onClick={handleSubmit}>
+          <button className="mt-6  text-blue-500 transition-colors hover:text-blue-700" type="submit" onClick={handleSubmit}>
             Sign in
-          </Button>
+          </button>
           <div className="mt-14">
             <hr/>
-          <Typography color="gray" className="mt-4 text-center font-normal text-white">
+          <h2 color="gray" className="mt-4 text-center font-normal text-white">
           Don't have an account?{" "}
             <NavLink
               to='/signup'
@@ -62,11 +64,11 @@ import {saveData} from '../../localStorage'
             >
               Sign Up
             </NavLink>
-          </Typography>
+          </h2>
           </div>
         
           
         </form>
-      </Card>
+      </div>
     );
   }

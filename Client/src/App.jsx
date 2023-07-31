@@ -5,6 +5,10 @@ import AlmostDone from "./Pages/AlmostDone"
 import Home from "./Pages/Home"
 import Start from "./Pages/Start"
 import Profile from "./Pages/Profile"
+import MusicPlayer from "./Components/SharedLayout/MusicPlayer"
+import AdminPage from "./Pages/AdminPage"
+import AllSongs from "./Pages/AllSongs"
+import ArtistPlayList from "./Pages/ArtistPlaylist"
 
 
 
@@ -19,11 +23,15 @@ function App() {
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/almostDone" element={<AlmostDone/>} />
     <Route path="/start" element={<Start/>} />
-    <Route path = "/profile" element={<Profile/>} />
+    <Route path = "/profile" element={<Profile/>} />  
+    <Route path='/home' element={<MusicPlayer/>}>
+       <Route index element={<Home/>}/>
+    <Route path='uploadSong' element = {<AdminPage/>}/>  
+    <Route path='allSongs' element = {<AllSongs/>}/> 
+    </Route>
+    <Route path='artist/:id' element={<ArtistPlayList/>} />
 
-    
-
-    <Route path="/home" element={<Home/>}/>
+   
 
     
 

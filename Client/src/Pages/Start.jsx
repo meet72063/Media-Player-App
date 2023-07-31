@@ -7,6 +7,7 @@ const Start = () => {
 
   const logOuthandler =()=>{
     localStorage.removeItem('token')
+    localStorage.removeItem('userDetails')
     navigate('/')
   }
 
@@ -40,7 +41,7 @@ const Start = () => {
                   </p>
                </div>
             </div>
-            <button className="rounded-full uppercase bg-green-500 px-12 py-3 text-base font-bold text-black transition duration-200 hover:bg-green-600 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 " onClick={goToProfile} >
+            <button className="rounded-full uppercase tracking-widest bg-green-500 px-12 py-3 text-base font-bold text-black transition duration-200 hover:bg-green-500 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 " onClick={goToProfile} >
                     Account overview
              </button>
              <div className='flex'>
@@ -59,7 +60,7 @@ const Start = () => {
        
       </div>
       <div className='flex justify-center'>
-         <button className="rounded-full bg-transparent mt-10 px-5 py-3 text-base font-bold text-gray-600 transition duration-2000   hover:px-11 uppercase hover:border-black "  onClick={logOuthandler} >
+         <button className="rounded-full bg-transparent mt-10 px-5 py-3 text-base font-bold text-gray-700 transition duration-2000   hover:px-11 uppercase hover:border-black "  onClick={logOuthandler} >
                     log out
        </button>
       </div>

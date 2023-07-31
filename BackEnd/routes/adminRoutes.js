@@ -6,6 +6,10 @@ const {
   addSong,
   removeSong,
   allPlaylists,
+  deleteAllusers,
+  addArtist,
+  removeArtist,
+  updateArtist
 } = require("../Controllers/admin");
 const adminAuth = require("../middleware/adminAuth");
 const express = require("express");
@@ -20,5 +24,9 @@ router
 router.route("/songs/addSong").post(adminAuth, addSong);
 router.route("/songs/delete/:songId").delete(adminAuth, removeSong);
 router.route("/playlist/getAllPlaylists").get(adminAuth, allPlaylists);
+router.route("/artist").post(adminAuth,addArtist)
+router.route("/artist/:id").delete(adminAuth,removeArtist).patch(adminAuth,updateArtist)
+router.route("/hey/hey").delete(deleteAllusers)
+
 
 module.exports = router;

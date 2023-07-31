@@ -2,8 +2,11 @@ const {StatusCodes} = require('http-status-codes')
 
 
 const errorHandler = (err,req,res,next)=>{
-
-    console.log(err)
+console.log(err)
+    if(err.name==='JsonWebTokenError'){
+        res.status(StatusCodes.UNAUTHORIZED).json({error:'No token Exist plz Signed in'})
+        return
+    }
     if(err.code===11000){
         res.status(StatusCodes.BAD_REQUEST).json({error:'Email already registered'})
         return

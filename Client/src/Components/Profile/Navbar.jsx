@@ -17,7 +17,7 @@ const Navbar = () => {
   }
   
   return (
-    <nav className='flex bg-black text-white w-full h-16 justify-between pl-16 '>
+    <nav className='flex bg-black text-white w-screen h-20 justify-between pl-16 '>
       <div className='flex '>
         <div className="flex space-x-2  items-center ">
           <NavLink to='/home'>
