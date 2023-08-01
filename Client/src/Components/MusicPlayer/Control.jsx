@@ -8,11 +8,10 @@ import Error from '../SharedComponents/Error'
 
 
 const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration, currentplaying,error}) => {
-  const { allSongs} = useSelector((store) => store.currentTrack)
-  // console.log(nextSongsPlaylist)
+  const { nextSongsPlaylist} = useSelector((store) => store.currentTrack)
  let index 
- allSongs.some((song,i)=>{
-  if(song._id===currentplaying._id){
+ nextSongsPlaylist.some((song,i)=>{
+  if(song.name===currentplaying.name){
     index =i
     return true 
   }
@@ -31,22 +30,22 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
   const setPreviousSong = () => {
     if (index > 0) {
       const newIndex = index - 1
-      dispatch(setCurrentTrack({ ...allSongs[newIndex] }))
+      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex] }))
     } else {
-      const newIndex = allSongs.length - 1
-      dispatch(setCurrentTrack({ ...allSongs[newIndex]}))
+      const newIndex = nextSongsPlaylist.length - 1
+      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex]}))
     }
 
   }
 
   const setNextSong = () => {
-    let maxIndex = allSongs.length - 1
-    if (index == maxIndex) {
-      dispatch(setCurrentTrack({ ...allSongs[0] }))
+    let maxIndex = nextSongsPlaylist.length - 1
+    if (index === maxIndex) {
+      dispatch(setCurrentTrack({ ...nextSongsPlaylist[0] }))
 
     } else {
       const newIndex = index + 1
-      dispatch(setCurrentTrack({ ...allSongs[newIndex]}))
+      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex]}))
     }
 
   }

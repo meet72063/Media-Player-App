@@ -144,6 +144,26 @@ const updateArtist = async(req,res)=>{
  res.status(StatusCodes.OK).json({artist,msg:'artist has been updated successfullly'})
 }
 
+const addingSongs = async (req,res)=>{
+
+  const{id} = req.params
+  const artist = await Artist .find({_id:id})
+  
+  if(!artist){
+    res.status(404).json({error:"not found artist"})
+
+  }
+  artist[0].albums.push(req.body)
+
+  const updatedartist =  await Artist.findOneAndUpdate({_id:id},{
+    $push:{
+      albums:req.body
+    }
+  })
+ res.status(StatusCodes.OK).json({updatedartist,msg:'artist has been updated successfullly'})
+  
+}
+
 
 module.exports = {
   getAllusers,
@@ -156,5 +176,6 @@ module.exports = {
   deleteAllusers,
   updateArtist,
   addArtist,
-  removeArtist
+  removeArtist,
+  addingSongs
 };

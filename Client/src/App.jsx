@@ -9,6 +9,7 @@ import MusicPlayer from "./Components/SharedLayout/MusicPlayer"
 import AdminPage from "./Pages/AdminPage"
 import AllSongs from "./Pages/AllSongs"
 import ArtistPlayList from "./Pages/ArtistPlaylist"
+import UploadSongtoArtist from "./Components/UploaldFile/UploadSongtoArtist"
 
 
 
@@ -28,8 +29,10 @@ function App() {
        <Route index element={<Home/>}/>
     <Route path='uploadSong' element = {<AdminPage/>}/>  
     <Route path='allSongs' element = {<AllSongs/>}/> 
-    </Route>
     <Route path='artist/:id' element={<ArtistPlayList/>} />
+    </Route>
+    <Route path='temprary' element={<UploadSongtoArtist/>} />
+
 
    
 

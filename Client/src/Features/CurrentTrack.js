@@ -13,7 +13,9 @@ const initialState = {
     ArtistFetchError:false,
     artistLoading:true,
     nextSongsPlaylist:[],
-    songs:[]
+    songs:[],
+    currentArtist:'',
+
 }
 
 
@@ -57,6 +59,13 @@ const initialState = {
       },
       setNextSongsPlaylist:(state,{payload})=>{
         state.nextSongsPlaylist = payload
+      },
+      setcurrentArtist:(state,{payload})=>{
+        state.currentArtist = payload
+      },
+      //pushing songs at the end of the allsongs to play the artist palylist
+      pushPlaylist:(state,{payload})=>{
+       payload.forEach((item)=>state.nextSongsPlaylist.push(item))
       }
     }
     
@@ -74,6 +83,8 @@ export const {setCurrentTrack,
   setArtistLoading,
   setartistSongs,
   setNextSongsPlaylist,
+  setcurrentArtist,
+  pushPlaylist
     }  = currentTrack.actions
 export default currentTrack.reducer
 

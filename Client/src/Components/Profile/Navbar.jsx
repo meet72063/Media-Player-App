@@ -23,7 +23,7 @@ const Navbar = () => {
           <NavLink to='/home'>
             <img src="./Spotify.png" alt="spotify icon" className="w-9 " />
           </NavLink>
-          <span className=" font-semibold text-2xl pr-3">Spotify</span>
+          <span className=" font-semibold text-2xl pr-3">Musica</span>
          </div>
        </div>
        <div className='flex mr-3' >

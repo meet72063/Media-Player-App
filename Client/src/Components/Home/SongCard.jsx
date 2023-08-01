@@ -4,12 +4,11 @@ import {useDispatch} from 'react-redux'
 
 
 const SongCard = ({url,artist,name,img,index,_id}) => {
-  console.log(_id)
+  
 
   const dispatch = useDispatch()
   const currentTrackHandler = ()=>{
       dispatch(setCurrentTrack({url,artist,img,name,index,_id}))
-      console.log({url,artist,img,name,index})
       dispatch(startPlay(true))
   }
   return (

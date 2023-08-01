@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Error from '../SharedComponents/Error'
 import {Link} from 'react-router-dom'
 import Loading from '../SharedComponents/Loading'
-import ArtistsIconsList from './ArtistsIconsList'
+// import ArtistsIconsList from './ArtistsIconsList'
 
 const SongsHorizontalList = ({homepage}) => {
   

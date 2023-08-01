@@ -12,7 +12,7 @@ const AlmostDone = () => {
           <NavLink to='/home'>
             <img src="./spotify2.png" alt="spotify icon" className="w-9"/>
           </NavLink>
-          <span className=" font-semibold text-2xl">Spotify</span>
+          <span className=" font-semibold text-2xl">Musica</span>
         </div>
         <div className='mt-[48px] flex justify-center'>
           <h2 className=' text-[40px] font-bold'>Almost Done</h2>

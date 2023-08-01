@@ -20,9 +20,6 @@ const MusicPlayer = () => {
              { startPlay? <AudioPlayer/>:''}
              
           </div>
-          
-    //    </div> 
-    // </div>
    
   )
 }

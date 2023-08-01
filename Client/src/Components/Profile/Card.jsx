@@ -6,7 +6,7 @@ const Card = () => {
       <h1 className='text-2xl  font-semibold'>Your Plan</h1>
       <div  className='mt-5 rounded-2xl box outline-gray-300  border-gray-200 shadow-2xl border-[1px] h-[450px] '>
             <div className='border-none rounded-t-2xl text-3xl pl-5 font-bold pt-[100px] shadow-3xl drop-shadow-xl outline-[hsl(0,4%,63%)] bg-[hsl(0,4%,63%)] shadow-inherit h-[250px]'>
-                   Spotify Free
+                  Musica Free
             </div>
             <div>
                  <div className='border-b-[0.2px] ml-5 mr-5 border-gray-200 pt-7 pb-9 pl-1 font-semibold text-gray-700  [word-spacing:1px]'>

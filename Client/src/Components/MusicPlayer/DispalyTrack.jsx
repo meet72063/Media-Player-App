@@ -6,12 +6,12 @@ import { setCurrentTrack } from '../../Features/CurrentTrack'
 
 
 const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duration,setDuration}) => {
-  const { allSongs} = useSelector((store) => store.currentTrack)
+  const { nextSongsPlaylist} = useSelector((store) => store.currentTrack)
   
   const dispatch = useDispatch()
   let index 
-  allSongs.some((song,i)=>{
-   if(song._id===currentplaying._id){
+  nextSongsPlaylist.some((song,i)=>{
+   if(song.name===currentplaying.name){
      index =i
      return true 
    }
@@ -19,13 +19,13 @@ const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duratio
 
 //onEnded handler
 const handleEnded= ()=>{
-  let  maxIndex = allSongs.length-1
+  let  maxIndex = nextSongsPlaylist.length-1
     if(index==maxIndex){
-    dispatch(setCurrentTrack({...allSongs[0]}))
+    dispatch(setCurrentTrack({...nextSongsPlaylist[0]}))
 
     }else{
      const newIndex = index+1
-     dispatch(setCurrentTrack({...allSongs[newIndex]}))
+     dispatch(setCurrentTrack({...nextSongsPlaylist[newIndex]}))
     }
 
    }

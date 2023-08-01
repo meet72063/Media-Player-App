@@ -16,7 +16,7 @@ const {currentplaying,isPlaying}  = useSelector((store)=>store.currentTrack)
 
 const [progressValue,setProgressValue] = useState(0)
 const [duration , setDuration] = useState(0)
-const [isMinimize,setIsminimize] = useState(false)
+// const [isMinimize,setIsminimize] = useState(false)
 
 
     const audioRef = useRef()

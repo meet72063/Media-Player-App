@@ -1,8 +1,4 @@
-// import {
-//   Card,
-//   h2,
-//   Input
-// } from "@material-tailwind/react";
+
 import axios from "axios";
 import {storeUserDetails} from '../../Features/userDetailSlice'
 import { useState } from "react";
@@ -37,13 +33,13 @@ export default function Form() {
     e.preventDefault()
     
    if(!(0<Number(additonalDetails.date)&& Number(additonalDetails.date)<=31)){
-    setError('please enter valid Date')
+    setError('please enter valid Date of Birth')
     return
    }
 
 
 if(additonalDetails.year.length!==4||(additonalDetails.year[0]!=1&&additonalDetails.year[0]!=2)) { 
-   setError('please enter valid Year')
+   setError('please enter valid Year of Birth')
    return
 }
     

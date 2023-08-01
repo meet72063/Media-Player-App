@@ -34,3 +34,17 @@ export const saveArtistPlaylist = async(data)=>{
 return res
 
 }
+
+export const addingSongs = async(data)=>{
+ 
+
+  const res = await axios.patch(`${baseUrl}/addingSongs/64c67176eae1c866d207bca6`,data,{
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+    
+  })
+return res
+
+}

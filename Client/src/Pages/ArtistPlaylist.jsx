@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SongCardList from '../Components/ArtistPlaylist/SongCardList'
+import {setcurrentArtist} from '../Features/CurrentTrack'
 
 
 const Artist = () => {
   const { id } = useParams()
   const { allArtist } = useSelector((store) => store.currentTrack)
   const [artist] = allArtist?.filter((artist) => artist._id === id)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setcurrentArtist(artist))
+  })
 
   return (
     <div className='bg-black flex gap-3  pb-1  pl-3 pr-3'>
