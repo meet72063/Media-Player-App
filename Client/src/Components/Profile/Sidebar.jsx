@@ -1,4 +1,4 @@
-//will use it later or will make another one 
+
 
 import React from 'react'
 import { SecurityOutlined, LockClockOutlined, HttpOutlined, PaymentOutlined, NotificationsNoneSharp, SettingsBackupRestoreOutlined, ReceiptOutlined, ExtensionOutlined, EditOutlined, AddHomeWorkOutlined, } from '@mui/icons-material'
@@ -59,9 +59,9 @@ const Sidebar = () => {
  
       <div className='flex flex-col'>
         {sideBarItems.map((item, index) => {
-          return <div key={index} className='flex text-sm space-x-5 font-semibold border-b-[0.3px] border-zinc-800 text-white ml-1 mr-1 mb-4 pl-8 pr-5 pt-1 pb-2'>
-            {item.icon}
-            <h1>{item.text}</h1>
+          return <div key={index} className='flex text-sm space-x-5  font-semibold border-b-[0.3px] border-zinc-800 text-white ml-1 mr-1 mb-4 pl-8 pr-5 pt-1 pb-2'>
+           <span className='cursor-pointer'>{item.icon}</span> 
+            <h1 className='cursor-pointer'>{item.text}</h1>
           </div>
         })}
       </div>

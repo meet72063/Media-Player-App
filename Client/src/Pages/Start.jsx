@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink,useNavigate } from 'react-router-dom'
+import {getData} from '../localStorage'
 
 
 const Start = () => {
@@ -8,26 +9,29 @@ const Start = () => {
   const logOuthandler =()=>{
     localStorage.removeItem('token')
     localStorage.removeItem('userDetails')
-    navigate('/')
+    navigate('/login')
   }
 
   const goToWebPlayer =()=>{
-    navigate('/home')
+    navigate('/')
   }
 
   const goToProfile=()=>{
     navigate('/profile')
   }
 
+  const userData = getData()
+  
+
   return (
     <main>
        <div className='flex-col border-y-gray-300 border-b-[1px] mb-5 '>
         <div className="bg-white pt-[20px] pb-[0px] pl-[35px] pr-[0px] text-black flex flex-col align-center ">
         <div className="flex space-x-2 justify-center pr-6 mb-6">
-          <NavLink to='/home'>
+          <NavLink to='/'>
             <img src="./spotify2.png" alt="spotify icon" className="w-11"/>
           </NavLink>
-          <span className=" font-bold text-3xl pt-1 ">Spotify</span>
+          <span className=" font-bold text-3xl pt-1 ">Musica</span>
         </div>
       </div>
       </div>
@@ -37,7 +41,7 @@ const Start = () => {
             <div className='flex flex-col align-middle '>
                <div className='mb-[12px] flex justify-center'>
                   <p className='max-w-[140px]  text-[14px] font-[400]  '>
-                   Logged in as <span className='uppercase'>amit kumar</span>
+                   Logged in as <span className='uppercase'>{userData.name}</span>
                   </p>
                </div>
             </div>

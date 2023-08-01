@@ -19,18 +19,18 @@ function App() {
   return (
     <>
    <Routes>
-    <Route path="/" element={<h1>Landing Page</h1>} />
-    <Route path="/login" element={<Login/>} />
-    <Route path="/signup" element={<SignUp/>} />
-    <Route path="/almostDone" element={<AlmostDone/>} />
-    <Route path="/start" element={<Start/>} />
-    <Route path = "/profile" element={<Profile/>} />  
-    <Route path='/home' element={<MusicPlayer/>}>
+    <Route path='/' element={<MusicPlayer/>}>
        <Route index element={<Home/>}/>
     <Route path='uploadSong' element = {<AdminPage/>}/>  
     <Route path='allSongs' element = {<AllSongs/>}/> 
     <Route path='artist/:id' element={<ArtistPlayList/>} />
     </Route>
+    <Route path="/login" element={<Login/>} />
+    <Route path="/signup" element={<SignUp/>} />
+    <Route path="/almostDone" element={<AlmostDone/>} />
+    <Route path="/start" element={<Start/>} />
+    <Route path = "/profile" element={<Profile/>} />  
+    
     <Route path='temprary' element={<UploadSongtoArtist/>} />
 
 

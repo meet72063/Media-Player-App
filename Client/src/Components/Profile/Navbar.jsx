@@ -13,14 +13,14 @@ const Navbar = () => {
   const logOut =()=>{
     localStorage.removeItem('token')
     localStorage.removeItem('userDetails')
-    navigate('/')
+    navigate('/login')
   }
   
   return (
     <nav className='flex bg-black text-white w-screen h-20 justify-between pl-16 '>
       <div className='flex '>
         <div className="flex space-x-2  items-center ">
-          <NavLink to='/home'>
+          <NavLink to='/'>
             <img src="./Spotify.png" alt="spotify icon" className="w-9 " />
           </NavLink>
           <span className=" font-semibold text-2xl pr-3">Musica</span>

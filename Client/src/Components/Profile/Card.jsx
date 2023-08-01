@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Card = () => {
+  const [premiumMessage,setPremiumMessage] = React.useState(false)
   return (
     <div className='mt-8 '>
       <h1 className='text-2xl  font-semibold'>Your Plan</h1>
@@ -23,10 +24,11 @@ const Card = () => {
           
             
       </div>
-      <button className="  mt-6 rounded-full bg-transparent px-12 py-3 text-base font-bold text-gay transition duration-200  border-[1px] border-gray-700 hover:bg-gray hover:shadow-lg  " 
+      <button className="  mt-6 rounded-full bg-transparent px-12 py-3 text-base font-bold text-gay transition duration-200  border-[1px] border-gray-700 hover:bg-gray hover:shadow-lg  "  onClick={()=>setPremiumMessage(true)}
           type="submit" >
           Join Premium
         </button>
+        {premiumMessage&&<h1 className='text-green-700'>Sorry! we are unable to provide this service</h1>}
     </div>
 
   )

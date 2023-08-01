@@ -7,7 +7,7 @@ const Login = () => {
     <div className=" h-full ">
       <div className="bg-black pt-[32px] pb-[32px] pl-[51px] pr-[0px] text-white ">
         <div className="flex space-x-2  items-center ">
-          <NavLink to='/home'>
+          <NavLink to='/'>
             <img src="./Spotify.png" alt="spotify icon" className="w-9" />
           </NavLink>
           <span className=" font-semibold text-2xl">Musica</span>

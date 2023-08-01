@@ -88,7 +88,7 @@ const EditProfile = ({setEditProfile}) => {
 
                 <div className='space-y-2'>
                     <label htmlFor="gender" className='font-semibold'>Gender</label>
-                    <select id="gender" name='gender' onChange={handleChange} className="bg-white border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  " value={gender} >
+                    <select id="gender" name='gender' onChange={handleChange} className="bg-white border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  " defaultValue={gender} >
                         <option value={userDetails.gender} className='capitalize' >{userDetails.gender}</option>
                         <option value="female" >Female</option>
                         <option value="Male">Male</option>

@@ -57,7 +57,7 @@ if(additonalDetails.year.length!==4||(additonalDetails.year[0]!=1&&additonalDeta
    dispatch(storeUserDetails(res.data.data))
    
    saveData(res.data.data)
-   navigate('/profile')
+   navigate('/start')
   } catch (error) {
       setError(error?.response?.data||error?.response?.message)
   }
