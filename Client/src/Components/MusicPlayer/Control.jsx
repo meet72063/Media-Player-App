@@ -1,51 +1,65 @@
 import React, { useEffect, useRef, useCallback ,useState} from 'react'
-import { PlayCircleOutline, PauseCircle, SkipNext, SkipPrevious, SkipPreviousTwoTone, SkipNextTwoTone } from '@mui/icons-material'
-import { setIsplaying, setCurrentTrack } from '../../Features/CurrentTrack'
+import { PlayCircleOutline, PauseCircle, SkipNext, SkipPrevious, SkipPreviousTwoTone, SkipNextTwoTone,LoopSharp } from '@mui/icons-material'
+import { setIsplaying, setCurrentTrack} from '../../Features/CurrentTrack'
+import {setPlayList} from '../../Features/SongSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Error from '../SharedComponents/Error'
 
 
 
 
-const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration, currentplaying,error}) => {
-  const { nextSongsPlaylist} = useSelector((store) => store.currentTrack)
+const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration, currentplaying,error,loop,setLoop}) => {
+  const { allSongs} = useSelector((store) => store.currentTrack)
+  const {playlist} = useSelector(store=>store.songs)
  let index 
- nextSongsPlaylist.some((song,i)=>{
+ 
+ 
+  const dispatch = useDispatch()
+  const playAnimationRef = useRef()
+
+  useEffect(()=>{
+    if(isPlaying){
+      dispatch(setIsplaying(false))
+    }
+  },[])
+
+
+ playlist.some((song,i)=>{
   if(song.name===currentplaying.name){
     index =i
     return true 
   }
  })
 
-  
-
- 
-  const dispatch = useDispatch()
-  const playAnimationRef = useRef()
-
- 
-
+ const loopHandler = ()=>{
+  setLoop(!loop)
+ }
 
 
   const setPreviousSong = () => {
     if (index > 0) {
       const newIndex = index - 1
-      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex] }))
+      dispatch(setCurrentTrack({ ...playlist[newIndex] }))
     } else {
-      const newIndex = nextSongsPlaylist.length - 1
-      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex]}))
+      const newIndex = playlist.length - 1
+      dispatch(setCurrentTrack({ ...playlist[newIndex]}))
     }
 
   }
 
   const setNextSong = () => {
-    let maxIndex = nextSongsPlaylist.length - 1
-    if (index === maxIndex) {
-      dispatch(setCurrentTrack({ ...nextSongsPlaylist[0] }))
+    let maxIndex = playlist.length - 1
+    if (index===maxIndex) {
+      dispatch(setPlayList(allSongs))
+      dispatch(setCurrentTrack({ ...playlist[0] }))
 
-    } else {
+    }else if(index===undefined){
+      dispatch(setCurrentTrack({ ...playlist[0] }))
+      
+    }
+     else {
       const newIndex = index + 1
-      dispatch(setCurrentTrack({ ...nextSongsPlaylist[newIndex]}))
+      dispatch(setCurrentTrack({ ...playlist[newIndex]}))
     }
 
   }
@@ -75,14 +89,11 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
 
   }, [isPlaying, repeat])
 
- 
-  
 
 
   return (
 
     <div className='flex justify-center gap-x-4 '>
-
       <button onClick={setPreviousSong}>
         <SkipPrevious />
       </button>
@@ -98,6 +109,10 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
       <button onClick={setNextSong}>
         <SkipNext />
       </button>
+      <button className={`text-${loop?'green-600':'white'}`} onClick={loopHandler}>
+      <LoopSharp/>
+      </button>
+
     {error&&<Error/>}
 
     </div>

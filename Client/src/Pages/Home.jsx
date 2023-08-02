@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MainContent from '../Components/Home/MainContent'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllSongs,setError,setSongLoading,GetAllArtists,setArtistFechError,setArtistLoading,setNextSongsPlaylist  } from '../Features/CurrentTrack'
+import { GetAllSongs,setError,setSongLoading,GetAllArtists,setArtistFechError,setArtistLoading, setIsplaying} from '../Features/CurrentTrack'
 
 import { getAllSongs,getAllArtists,} from '../api/user'
 
@@ -23,7 +23,7 @@ const Home = () => {
       try {
         const { songs } = await getAllSongs()
         dispatch(GetAllSongs(songs))
-        dispatch(setNextSongsPlaylist(songs))
+        // dispatch(setNextSongsPlaylist(songs))
        dispatch( setSongLoading(false))
        dispatch(setError(false))
 

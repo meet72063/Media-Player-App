@@ -25,7 +25,7 @@ import {saveData} from '../../localStorage'
       localStorage.setItem("token",response.data.token)
       saveData(response.data.data)
       
-      navigate('/home')
+      navigate('/')
       
     } catch (error) {
       setError(error.response?.data?.error||error.response?.data||'something went wrong')

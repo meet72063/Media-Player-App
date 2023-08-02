@@ -1,16 +1,18 @@
 import { useSelector,useDispatch } from 'react-redux'
 import { setCurrentTrack } from '../../Features/CurrentTrack'
+import { setPlayList } from '../../Features/SongSlice'
 
 
 
 
 
-const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duration,setDuration}) => {
-  const { nextSongsPlaylist} = useSelector((store) => store.currentTrack)
+const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duration,setDuration,loop}) => {
+  const { allSongs} = useSelector((store) => store.currentTrack)
+  const {playlist } = useSelector((store)=>store.songs)
   
   const dispatch = useDispatch()
   let index 
-  nextSongsPlaylist.some((song,i)=>{
+  playlist.some((song,i)=>{
    if(song.name===currentplaying.name){
      index =i
      return true 
@@ -19,13 +21,22 @@ const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duratio
 
 //onEnded handler
 const handleEnded= ()=>{
-  let  maxIndex = nextSongsPlaylist.length-1
-    if(index==maxIndex){
-    dispatch(setCurrentTrack({...nextSongsPlaylist[0]}))
+  let  maxIndex = playlist.length-1
+  if(loop){
+    audioRef.current.currentTime=0
+    audioRef.current.play()
+    return
+  }
+  if (index===maxIndex) {
+    dispatch(setPlayList(allSongs))
+    dispatch(setCurrentTrack({ ...playlist[0] }))
 
-    }else{
+  }else if(index===undefined){
+    dispatch(setCurrentTrack({ ...playlist[0] }))
+    
+  }else{
      const newIndex = index+1
-     dispatch(setCurrentTrack({...nextSongsPlaylist[newIndex]}))
+     dispatch(setCurrentTrack({...playlist[newIndex]}))
     }
 
    }

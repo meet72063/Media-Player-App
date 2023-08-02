@@ -4,7 +4,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     currentplaying:null,
     isPlaying:false,
-    startPlay:false,
     isLoading:true,
     allSongs:{},
     error:false,
@@ -12,10 +11,9 @@ const initialState = {
     allArtist:'',
     ArtistFetchError:false,
     artistLoading:true,
-    nextSongsPlaylist:[],
     songs:[],
     currentArtist:'',
-
+  
 }
 
 
@@ -23,16 +21,15 @@ const initialState = {
     name:'CurrentTrack',
     initialState,
     reducers:{
+      //payload to play song
        setCurrentTrack:(state,{payload})=>{
           state.currentplaying = payload
        },
+
+       //play/pause song
        setIsplaying:(state,{payload})=>{
          state.isPlaying=payload
        },
-      startPlay:(state,{payload})=>{
-          state.isPlaying = true
-          state.startPlay=true
-      },
       setIsLoading:(state,{payload})=>{
         state.isLoading = payload
       },
@@ -57,23 +54,15 @@ const initialState = {
       setartistSongs:(state,{payload})=>{
         state.songs.push(payload)
       },
-      setNextSongsPlaylist:(state,{payload})=>{
-        state.nextSongsPlaylist = payload
-      },
       setcurrentArtist:(state,{payload})=>{
         state.currentArtist = payload
       },
-      //pushing songs at the end of the allsongs to play the artist palylist
-      pushPlaylist:(state,{payload})=>{
-       payload.forEach((item)=>state.nextSongsPlaylist.push(item))
-      }
     }
     
 })
 
 export const {setCurrentTrack,
   setIsplaying,
-  startPlay,
   setIsLoading,
   GetAllSongs,
   setError,
@@ -82,9 +71,7 @@ export const {setCurrentTrack,
   setArtistFechError,
   setArtistLoading,
   setartistSongs,
-  setNextSongsPlaylist,
   setcurrentArtist,
-  pushPlaylist
     }  = currentTrack.actions
 export default currentTrack.reducer
 

@@ -6,8 +6,7 @@ import NavBar from './NavBar'
 
 
 const MusicPlayer = () => {
-    const {startPlay}= useSelector((store)=>store.currentTrack)
-    
+    const {currentplaying}= useSelector((store)=>store.currentTrack)
    
     
   return (
@@ -17,7 +16,7 @@ const MusicPlayer = () => {
       </div>
         <Outlet/>
          
-             { startPlay? <AudioPlayer/>:''}
+             { currentplaying? <AudioPlayer/>:''}
              
           </div>
    

@@ -2,17 +2,29 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SongCardList from '../Components/ArtistPlaylist/SongCardList'
-import {setcurrentArtist} from '../Features/CurrentTrack'
+import {setcurrentArtist,setCurrentTrack,setIsplaying} from '../Features/CurrentTrack'
+import { setPlayList } from '../Features/SongSlice'
 
 
 const Artist = () => {
   const { id } = useParams()
-  const { allArtist } = useSelector((store) => store.currentTrack)
+  const { allArtist} = useSelector((store) => store.currentTrack)
   const [artist] = allArtist?.filter((artist) => artist._id === id)
+ 
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(setcurrentArtist(artist))
-  })
+  },[])
+
+
+  
+
+  const playAllHanlder =()=>{
+    
+   dispatch( setCurrentTrack({...artist.albums[0]}))
+    dispatch(setIsplaying(true))
+    dispatch(setPlayList(artist.albums))
+  }
 
   return (
     <div className='bg-black flex gap-3  pb-1  pl-3 pr-3'>
@@ -34,7 +46,7 @@ const Artist = () => {
             </div>
             <div className='mt-10 flex gap-x-12 border-b-gray-700 border-b-[0.3px] pb-5 mr-10' >
                <h1 className='text-3xl'>Songs</h1>
-               <button className='border-white border-2 w-32 h-10 rounded-lg'>play All</button>
+               <button className='border-white border-2 w-32 h-10 rounded-lg' onClick={playAllHanlder}>play All</button>
            
             </div>
            <SongCardList {...artist}/>

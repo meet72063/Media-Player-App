@@ -1,22 +1,23 @@
+import { FlashlightOffRounded } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
 
 
  const songSlice = createSlice({
     name:'songs',
-    initialState:{},
+    initialState:{
+      packagelaylist:[],
+      loop:FlashlightOffRounded
+    },
     reducers:{
-      GetSongs:(state,{payload})=>{
-   
-        state=payload
-        console.log(state)
-     
+      setPlayList:(state,{payload})=>{
+        state.playlist = payload
       }
     }
     
 })
 
 export default songSlice.reducer
-export const {GetSongs} = songSlice.actions
+export const {setPlayList} = songSlice.actions
 
 

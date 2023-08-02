@@ -27,7 +27,7 @@ const SongsHorizontalList = ({homepage}) => {
     <div className='pl-4 space-y-4'>
       <div className='flex justify-between mr-12 pr-3'>
       {homepage && <h1 className='text-3xl text-white font-thin'>New Releases</h1>}
- {homepage && <Link to = '/home/allSongs'> <h1 className='pt-3 text-xl text-red-500 font-sans ' >See more</h1></Link>}
+ {homepage &&allSongs.length>5&& <Link to = '/allSongs'> <h1 className='pt-3 text-xl text-red-500 font-sans ' >See more</h1></Link>}
       </div>
         <div className=' rounded-lg grid grid-cols-6 pt-1  '>
     

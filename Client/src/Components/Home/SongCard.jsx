@@ -1,5 +1,5 @@
 import React from 'react'
-import {setCurrentTrack,setIsplaying,startPlay} from '../../Features/CurrentTrack'
+import {setCurrentTrack,setIsplaying,} from '../../Features/CurrentTrack'
 import {useDispatch} from 'react-redux'
 
 
@@ -9,7 +9,7 @@ const SongCard = ({url,artist,name,img,index,_id}) => {
   const dispatch = useDispatch()
   const currentTrackHandler = ()=>{
       dispatch(setCurrentTrack({url,artist,img,name,index,_id}))
-      dispatch(startPlay(true))
+      dispatch(setIsplaying(true))
   }
   return (
     <>

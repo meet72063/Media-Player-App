@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <div className='bg-black pt-10  text-white pl-20 h-56 w-screen pr-20 grid grid-cols-[230px_300px_300px_300px] '>
       <div className='flex space-x-2 '>
-      <NavLink to='/home'>
+      <NavLink to='/'>
             <img src="./Spotify.png" alt="spotify icon" className="w-9 " />
           </NavLink>
-          <span className=" font-semibold text-2xl pr-3">Spotify</span>
+          <span className=" font-semibold text-2xl pr-3">Musica</span>
 
       </div>
       <div>
@@ -26,7 +26,7 @@ const Footer = () => {
         <h2 className='cursor-pointer'>For Artists</h2>
         <h2 className='cursor-pointer'>Developers</h2>
         <h2 className='cursor-pointer'>Advertising</h2>
-        <h2 className='cursor-pointer'>Spotify for Work</h2>
+        <h2 className='cursor-pointer'>Musica for Work</h2>
 
         </div>
       </div>

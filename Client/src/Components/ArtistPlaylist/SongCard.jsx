@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { PauseSharp, PlaceSharp, PlayArrow, PlayArrowSharp } from '@mui/icons-material'
 import {useDispatch, useSelector} from "react-redux"
-import { setIsplaying,setCurrentTrack,startPlay} from '../../Features/CurrentTrack'
+import { setIsplaying,setCurrentTrack,} from '../../Features/CurrentTrack'
+import { setPlayList } from '../../Features/SongSlice'
 
 
 
-const SongCard = ({name,url}) => {
+const SongCard = ({name,url,albums}) => {
+ 
   const {currentplaying,isPlaying} = useSelector(store=>store.currentTrack)
   const [playing,setPlaying] = useState(false)
   const dispatch = useDispatch()
@@ -15,8 +17,8 @@ const SongCard = ({name,url}) => {
   },[currentplaying])
   
   useEffect(()=>{
-   if (currentplaying?.name===name&&isPlaying){
-      setPlaying(true)
+   if (currentplaying?.name===name){
+      setPlaying(isPlaying)
    }
   },[currentplaying,isPlaying])
   
@@ -29,8 +31,9 @@ const SongCard = ({name,url}) => {
     }
    
     dispatch(setCurrentTrack({url,name}))
-    dispatch(startPlay(true))
+    dispatch(setIsplaying(true))
     setPlaying(true)
+    dispatch(setPlayList(albums))
 
   }
   
