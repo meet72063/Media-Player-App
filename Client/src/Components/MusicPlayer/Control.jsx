@@ -17,14 +17,15 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
   const dispatch = useDispatch()
   const playAnimationRef = useRef()
 
-  useEffect(()=>{
-    if(isPlaying){
-      dispatch(setIsplaying(false))
-    }
-  },[])
+useEffect(()=>{
+  if(playlist.length===0){
+    dispatch(setPlayList(allSongs))
+  }
+},[])
 
 
- playlist.some((song,i)=>{
+
+ playlist?.some((song,i)=>{
   if(song.name===currentplaying.name){
     index =i
     return true 
@@ -109,8 +110,8 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
       <button onClick={setNextSong}>
         <SkipNext />
       </button>
-      <button className={`text-${loop?'green-600':'white'}`} onClick={loopHandler}>
-      <LoopSharp/>
+      <button  onClick={loopHandler}>
+      <LoopSharp className={`text-${loop?'green-700':'white'}`}/>
       </button>
 
     {error&&<Error/>}

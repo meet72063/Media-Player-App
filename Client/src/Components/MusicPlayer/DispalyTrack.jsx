@@ -12,7 +12,7 @@ const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duratio
   
   const dispatch = useDispatch()
   let index 
-  playlist.some((song,i)=>{
+  playlist?.some((song,i)=>{
    if(song.name===currentplaying.name){
      index =i
      return true 

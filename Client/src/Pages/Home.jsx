@@ -62,7 +62,7 @@ const Home = () => {
 
 
   return (
-    <div className= 'bg-black w-[1349.4px] mb-0  pt-3 h-[150vh] '>
+    <div className= 'bg-transparent w-[1349.4px] mb-0  pt-3 h-[150vh] '>
            <MainContent/>
         </div>
    

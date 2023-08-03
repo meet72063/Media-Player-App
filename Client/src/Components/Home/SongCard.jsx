@@ -13,8 +13,8 @@ const SongCard = ({url,artist,name,img,index,_id}) => {
   }
   return (
     <>
-    <div className='flex mb-16' >
-         <div className='bg-zinc-900 w-[160px] h-[240px] rounded-md p-2 cursor-pointer'onClick={currentTrackHandler}>
+    <div className='flex mb-16 ' >
+         <div className='bg-black border-[0.001px] border-slate-500  w-[160px] h-[240px] rounded-md p-2 cursor-pointer'onClick={currentTrackHandler}>
          <img src={img} alt="cover pic" className='w-[140px] h-[140px]  rounded-lg mb-2' />
          <h2 className='text-lg font-thin  mb-1 text-white '>{name} </h2>
          <h2 className='text-gray-500 text-sm'>{artist}</h2>

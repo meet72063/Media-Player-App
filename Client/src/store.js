@@ -6,11 +6,14 @@ import artistReducer from './Features/artistSlice'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 import {persistReducer,persistStore} from 'redux-persist'
-// import persistReducer from 'redux-persist/es/persistReducer'
+import modalReducer from './Features/modalSlice'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
+
 
 const persistConfig = {
     key:'root',
-    storage
+    storage,
+    stateReconciler:autoMergeLevel2
     
 }
 
@@ -18,7 +21,9 @@ const rootReducer = combineReducers({
         userDetails:userDetailsReducer,
         songs:songReducer,
         artists:artistReducer,
-        currentTrack:currentTrackReducer
+        currentTrack:currentTrackReducer,
+        modal:modalReducer
+        
 })
 
 const persistedReducer = persistReducer(persistConfig,rootReducer)
