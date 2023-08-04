@@ -18,7 +18,7 @@ const artistSchema = mongoose.Schema({
         type: String
     }
 
-},{createdAt:"true"})
+},{timestamps:true})
 
 const Artist = mongoose.model("artists",artistSchema)
 

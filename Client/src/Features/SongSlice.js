@@ -6,13 +6,23 @@ import { createSlice } from "@reduxjs/toolkit";
     name:'songs',
     initialState:{
       playlist:[],
+      createPlaylist:[],
+
      
     },
     reducers:{
       setPlayList:(state,{payload})=>{
         state.playlist = payload
       },
-   
+     addToCreatePlaylist:(state,{payload})=>{
+        state.createPlaylist.push(payload)
+     },
+     removeFromCreatePlaylist:(state,{payload})=>{
+      state.createPlaylist = state.createPlaylist.filter((song)=>song.url!==payload.url)
+     },
+     clearCreatePlaylist:(state)=>{
+      state.createPlaylist=[]
+     }
     }
     
 })
@@ -21,4 +31,4 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export default songSlice.reducer
 
-export const {setPlayList} = songSlice.actions
+export const {setPlayList,addToCreatePlaylist,removeFromCreatePlaylist,clearCreatePlaylist} = songSlice.actions

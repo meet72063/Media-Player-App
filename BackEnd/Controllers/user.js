@@ -48,6 +48,7 @@ const logIn = async(req,res)=>{
  
 delete user._doc.password
  const token = user.generateToken()
+ console.log(token)
   res.status(StatusCodes.OK).json({status:'successful',token,data:user._doc})
 
 }

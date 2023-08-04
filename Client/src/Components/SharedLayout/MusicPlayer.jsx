@@ -24,7 +24,6 @@ const MusicPlayer = () => {
       <div className='w-[1349.4px] pt-3 mb-20'>
         
         <Nav/>
-        <button className='text-white fixed top-52'>open your modal </button>
        {openModal && <Modal/> }
        
       </div>

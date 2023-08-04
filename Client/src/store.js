@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 import {persistReducer,persistStore} from 'redux-persist'
 import modalReducer from './Features/modalSlice'
+import userPlayistReducer from './Features/UserPlaylistSlice'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 
 
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
         songs:songReducer,
         artists:artistReducer,
         currentTrack:currentTrackReducer,
-        modal:modalReducer
+        modal:modalReducer,
+        playlists:userPlayistReducer
         
 })
 

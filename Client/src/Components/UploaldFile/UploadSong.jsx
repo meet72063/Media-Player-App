@@ -39,7 +39,7 @@ const UploadSong = () => {
       setIsuploading({ ...isUploading, [fileName]: false })
 
       fileName === 'songCover' ? songDetails.img = null : songDetails.url = null
-      
+      fileName==='songCover'?setState({...state,songCover:''}):setState({...state,song:''})
 
     }).catch((err) => {
       setIsuploading({ ...isUploading, [fileName]: false })
@@ -80,11 +80,14 @@ const UploadSong = () => {
 
 
           setState({ ...state, [e.target.name]: downloadURL })
-          setIsuploading({ ...isUploading, [e.target.name]: false })
+          e.target.name==='songCover'?setIsuploading({...isUploading,songCover:false}):setIsuploading({...isUploading,song:false})
+    
+          // setIsuploading({ ...isUploading, [e.target.name]: false })
         });
       })
 
   }
+  
 
   const submitSong = async()=>{
        if(!songDetails.img||!songDetails.url){

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const IsUploading = ({progress}) => {
-const artist = useSelector((store)=>store.artists)
+
 
 
   return (

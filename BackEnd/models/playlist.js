@@ -12,25 +12,22 @@ const PlaylistSchema = mongoose.Schema({
      ref:'users',
      required:true
     },
-    desc:{
+    description:{
         type:String,
     },
     songs:{
         type:Array,
         default:[],
     },
-    img:{
-        type:String,
-    }
-})
+    
+},{timestamps:true})
 
 const PlayList = mongoose.model('playlist',PlaylistSchema)
 
 const playlistValidaion = (playList)=>{
     const Schema = joi.object({
         name:joi.string().required(),
-        desc:joi.string().allow(),
-        img:joi.string().allow(),
+        description:joi.string().allow(),
         songs:joi.array().allow(),
         
 

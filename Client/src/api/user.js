@@ -24,3 +24,26 @@ export const getAllArtists = async()=>{
   })
   return res.data.artists
 }
+
+
+//create new playlist
+
+export const createNewPlaylist = async (data)=>{
+  console.log(token)
+  const res = await axios.post(`${baseUrl}/newplaylist`,data,{headers:{
+    'Authorization': `Bearer ${token}`
+  }})
+  return res.data
+}
+
+
+// Get Allplaylist
+
+export const getAllPlaylist = async(data)=>{
+ const res = await axios.get(`${baseUrl}/getallplaylists`,{
+  headers:{
+    'Authorization':`Bearer ${token}`
+  }
+ })
+ return res.data.playlists
+}
