@@ -11,7 +11,6 @@ const userAuth = (req,res,next)=>{
   }
 
  const  token = authorization.split(' ')[1]
-
   if(!token){
     res.status(StatusCodes.BAD_REQUEST).json('No token provided')
     return

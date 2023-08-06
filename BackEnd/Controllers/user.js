@@ -48,7 +48,6 @@ const logIn = async(req,res)=>{
  
 delete user._doc.password
  const token = user.generateToken()
- console.log(token)
   res.status(StatusCodes.OK).json({status:'successful',token,data:user._doc})
 
 }
@@ -116,16 +115,28 @@ const updateLikedSongs = async (req,res)=>{
    let index = likedSongs.indexOf(songId)
    if(index===(-1)){
    likedSongs.push(songId)
- const user= await User.findByIdAndUpdate({_id:userId},{likedSongs}).select('-password')
-   res.status(StatusCodes.OK).json({message:' song has been added to your liked songs ',user})
+ const user= await User.findByIdAndUpdate({_id:userId},{likedSongs},{new:true}).select('-password')
+   res.status(StatusCodes.OK).json({message:' song has been added to your liked songs ',user,added:true})
    return
    }
  const updateSong= likedSongs.filter((item)=>item!==likedSongs[index])
- const user= await User.findByIdAndUpdate({_id:userId},{likedSongs:updateSong}).select('-password')
+ const user= await User.findByIdAndUpdate({_id:userId},{likedSongs:updateSong},{new:true}).select('-password')
 
-res.status(StatusCodes.OK).json({message:'song has been removed from your liked songs',user})
+res.status(StatusCodes.OK).json({message:'song has been removed from your liked songs',user,added:false})
   
 }
+
+const favouriteSongs = async (req,res)=>{
+  const {userId} = req.user
+  console.log(userId)
+  const user = await User.updateOne({_id:userId},{
+    $set:{
+      likedSongs:req.body
+    }
+  })
+  res.status(StatusCodes.OK).json({message:'songs has been added seccessfully to favourites',user})
+}
+
 
 //making playlist
 
@@ -188,31 +199,6 @@ const getAllPlaylist = async(req,res)=>{
  
 }
 
-//  adding/removing songs to/from playlist
-
-const addingSongs = async(req,res)=>{
-  
-  const {body:{songId},user:{userId},params:{playlistId}} =req;
-  
-  const {songs,name} =await PlayList.findOne({_id:playlistId,user:userId})
-  
-let index  = songs.indexOf(songId)
-console.log(index)
- if(index===-1){
- 
- songs.push(songId)
- console.log(songs)
-  await PlayList.findOneAndUpdate({_id:playlistId,user:userId},{songs})
-  res.status(StatusCodes.OK).json({message:`song has been added to ${name}`})
-  return
- }
-const filteredPlaylist =songs.filter((i)=>i!==songId)
-
-
-await PlayList.findOneAndUpdate({_id:playlistId,user:userId},{songs:filteredPlaylist})
-res.status(StatusCodes.OK).json({message:`song has been removed from ${name}`})
-
-}
 
 //getting all the aritsts 
 
@@ -235,5 +221,6 @@ module.exports =
   getPlaylist,
   getAllPlaylist,
   addingSongs,
-  getAllArtists
+  getAllArtists,
+  favouriteSongs
 }

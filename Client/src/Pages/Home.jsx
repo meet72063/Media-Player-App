@@ -23,7 +23,6 @@ const Home = () => {
       try {
         const { songs } = await getAllSongs()
         dispatch(GetAllSongs(songs))
-        // dispatch(setNextSongsPlaylist(songs))
        dispatch( setSongLoading(false))
        dispatch(setError(false))
 

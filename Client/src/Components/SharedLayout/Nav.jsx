@@ -5,20 +5,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import {getData} from '../../localStorage'
 import { setOpenModal } from '../../Features/modalSlice'
 import { useDispatch } from 'react-redux'
-
+import {setFavouritePlaylist} from '../../Features/UserPlaylistSlice'
 
 const Nav = () => {
     const userDetails = getData()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-  const logInOutHandler=()=>{
+  
+   const logInOutHandler=()=>{
    if(userDetails){
      localStorage.removeItem("token")
      localStorage.removeItem("userDetails")
-   }
+     localStorage.removeItem("persist:root")
+     dispatch(setFavouritePlaylist([]))
+}
    navigate('/signUp')
   
   }
+
  const handlePlaylistPage = ()=>{
   if(!userDetails){
     dispatch( setOpenModal(true))
@@ -27,6 +31,17 @@ const Nav = () => {
     navigate('/playlists')
   }
  }
+
+ const handleFavouritePage =()=>{
+  if(!userDetails){
+    dispatch(setOpenModal(true))
+  }
+  else{
+    navigate('/favourites')
+  }
+ }
+
+ 
 
   return (
     <div className='bg-black  fixed top-0 h-[14%] pt-2 w-full  flex text-slate-400 pl-2 pr-2'>
@@ -40,8 +55,13 @@ const Nav = () => {
    </div>
 <div className='ml-32 pt-2 flex '>
 <TextField id="standard-basic" placeholder="search songs" variant="standard"  sx={{ input: { color: 'white'} }} focused />
-<div className='ml-32 mt-3'>
+
+<div className='ml-32 mt-3 space-x-4'>
    <button  onClick={handlePlaylistPage}  className='cursor-pointer'>Playlists</button> 
+   <button  onClick={handleFavouritePage}  className='cursor-pointer'>favourites</button> 
+
+ 
+
 </div>
  <div className={`${userDetails?"fixed right-5 top-0":"fixed right-6 top-8 "}`}>
     {userDetails&& <Link to='/profile' > <img src="/profile-circle.svg" alt="" className='w-[50px] h-[50px]' /></Link>}

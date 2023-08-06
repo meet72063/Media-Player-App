@@ -13,6 +13,7 @@ import UploadSongtoArtist from "./Components/UploaldFile/UploadSongtoArtist"
 import Playlists from "./Pages/Playlists"
 import CreatePlaylist from "./Pages/CreatePlaylist"
 import PlayListTracks from './Pages/PlayListTracks'
+import Favourites from "./Pages/Favourites"
 
 
 
@@ -30,6 +31,7 @@ function App() {
     <Route path="playlists" element={<Playlists/>}/>  
     <Route  path="playlists/:id" element ={<PlayListTracks />}/>
    <Route path="createPlaylist" element={<CreatePlaylist/>}/>
+   <Route path="favourites" element={<Favourites/>} />
     </Route>
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />

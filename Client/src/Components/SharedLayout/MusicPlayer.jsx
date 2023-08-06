@@ -7,10 +7,13 @@ import Nav from './Nav'
 import Modal from './Modal'
 
 
+
+
+
 const MusicPlayer = () => {
     const {currentplaying}= useSelector((store)=>store.currentTrack)
+    // const {favouritePlaylist} = useSelector(store=>store.playlists)
     const dispatch = useDispatch()
-
      
  
     

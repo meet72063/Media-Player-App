@@ -6,7 +6,7 @@ import { setPlayList } from '../../Features/SongSlice'
 
 
 
-const SongCard = ({name,url,albums}) => {
+const SongCard = ({name,url,albums,_id}) => {
  
   const {currentplaying,isPlaying} = useSelector(store=>store.currentTrack)
   const [playing,setPlaying] = useState(false)
@@ -30,7 +30,7 @@ const SongCard = ({name,url,albums}) => {
       return
     }
    
-    dispatch(setCurrentTrack({url,name}))
+    dispatch(setCurrentTrack({url,name,_id}))
     dispatch(setIsplaying(true))
     setPlaying(true)
     dispatch(setPlayList(albums))

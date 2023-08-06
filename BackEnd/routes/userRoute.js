@@ -15,7 +15,8 @@ const {
   getPlaylist,
   getAllPlaylist,
   addingSongs,
-  getAllArtists
+  getAllArtists,
+  favouriteSongs
 } = require("../Controllers/user");
 
 router.route("/signUp").post(creatUser);
@@ -24,6 +25,7 @@ router.route("/delete").delete(userAuth, Delete);
 router.route("/update").patch(userAuth, Update);
 router.route("/getUser").get(userAuth, getUser);
 router.route("/likedSong/:songId").patch(userAuth, updateLikedSongs);
+router.route("/favouriteSongs").patch(userAuth,favouriteSongs)
 router.route("/getAllSongs").get( getSongs);
 router.route("/newplaylist").post(userAuth, newPlayList);
 router.route("/deleteplaylist/:playlistId").delete(userAuth, deltePlaylist);

@@ -46,7 +46,8 @@ const [loop,setLoop] = useState(false)
         
          
         
-        <img src='/musicwheel.png' alt="isong" className={`w-[82px] pb-1 h-[82px] rounded-full ${isPlaying&&'animate-spin'} ` } />
+        <img src='/musicwheel.png' alt="musicIcon" className={`w-[82px] pb-1 h-[82px] rounded-full  ` } />  
+        {/* ${isPlaying&&'animate-spin'} */}
          
       
       

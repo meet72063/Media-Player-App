@@ -4,12 +4,15 @@ import axios from 'axios'
 import Error from "../SharedComponents/Error";
 import {useNavigate,NavLink} from 'react-router-dom'
 import {saveData} from '../../localStorage'
+import {setFavouritePlaylist} from '../../Features/UserPlaylistSlice'
+import { useDispatch } from "react-redux";
  
    
   export default function InputLogin() {
     const [userDetails,setUserDetails] = useState({email:'',password:''})
     const [error,setError] = useState(null)
    const navigate = useNavigate()
+   const dispatch = useDispatch()
   
     const handleChange =(e)=>{
       setError(null)
@@ -24,6 +27,8 @@ import {saveData} from '../../localStorage'
       
       localStorage.setItem("token",response.data.token)
       saveData(response.data.data)
+      dispatch(setFavouritePlaylist(response.data.data.likedSongs))
+    
       
       navigate('/')
       

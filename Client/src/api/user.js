@@ -1,3 +1,4 @@
+import { LensTwoTone } from "@mui/icons-material"
 import axios from "axios"
 const baseUrl = 'http://localhost:5000'
 const token = localStorage.getItem("token")
@@ -17,6 +18,7 @@ const token = localStorage.getItem("token")
 }
 
 export const getAllArtists = async()=>{
+  let token = localStorage.getItem("token")
   const res = await axios.get(`${baseUrl}/getAllArtists`,{
     headers: {
       'Authorization': `Bearer ${token}`
@@ -40,6 +42,7 @@ export const createNewPlaylist = async (data)=>{
 // Get Allplaylist
 
 export const getAllPlaylist = async(data)=>{
+  console.log(token)
  const res = await axios.get(`${baseUrl}/getallplaylists`,{
   headers:{
     'Authorization':`Bearer ${token}`
