@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import MainContent from '../Components/Home/MainContent'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllSongs,setError,setSongLoading,GetAllArtists,setArtistFechError,setArtistLoading, setIsplaying} from '../Features/CurrentTrack'
+import { useDispatch } from 'react-redux'
+import { GetAllSongs,setError,setSongLoading,GetAllArtists,setArtistFechError,setArtistLoading,setCatogories} from '../Features/CurrentTrack'
 
-import { getAllSongs,getAllArtists,} from '../api/user'
+import { getAllSongs,getAllArtists,getCatogories} from '../api/user'
 
 
 
@@ -56,12 +56,25 @@ const Home = () => {
 },[])
 
 
+useEffect(()=>{
+   const getCatogoriesFunc = async ()=>{
+    try {
+      const catogories = await getCatogories()
+      dispatch(setCatogories(catogories))
+    } catch (error) {
+      console.log(error)
+    }
+   }
+   getCatogoriesFunc()
+},[])
+
+
 
 
 
 
   return (
-    <div className= 'bg-transparent w-[1349.4px] mb-0  pt-3 h-[150vh] '>
+    <div className= 'bg-transparent w-[100%] mb-0  pt-3 '>
            <MainContent/>
         </div>
    

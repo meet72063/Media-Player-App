@@ -34,16 +34,15 @@ const SongCard = ({ name, url, albums, img, artist ,_id}) => {
 
     return (
         <div>
-            <div className='bg-red-300 h-14  rounded-md pl-5 '>
-                <div className='flex place-items-center justify-between pr-7 '>
-                    <div className='flex  gap-5 pt-2 ' >
+            <div className='bg-red-300 h-14 grid items-center rounded-md  '>
+                <div className='flex items-center pl-5 pr-5 justify-between xs:text-sm '>
                         <img src={`${img || "./musicwheel.png"}`} alt="" className=' h-10 w-10 rounded-full' />
-                   
+                               
                             <span className="mt-2 text-black" >{name}</span>
                             <span className="mt-2 text-zinc-700 " >{artist}</span>
                         
 
-                    </div>
+                    
                     <div className=''>
                         <button onClick={handleSelected} className={` ${selected ? "text-green-600" : "text-red-500"}`}>
                             {selected ? <CheckCircleOutlineSharp /> : <AddCircleOutlineSharp />}

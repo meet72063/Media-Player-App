@@ -14,6 +14,7 @@ if(!token){
   res.status(StatusCodes.BAD_REQUEST).json({error:'No token provided,plz login again'})
   return
 }
+console.log(token)
 const  decoded = jwt.verify(token,process.env.JWT_PRIVATE_KEY)
 
 if(!decoded){

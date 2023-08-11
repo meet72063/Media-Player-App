@@ -35,10 +35,10 @@ return res
 
 }
 
-export const addingSongs = async(data)=>{
- 
-
-  const res = await axios.patch(`${baseUrl}/addingSongs/64c67176eae1c866d207bca6`,data,{
+export const addingSongs = async(data,_id)=>{
+ let token = localStorage.getItem("token")
+ console.log(data)
+  const res = await axios.patch(`${baseUrl}/addingSongs/${_id}`,data,{
     headers: {
       'content-type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -48,3 +48,4 @@ export const addingSongs = async(data)=>{
 return res
 
 }
+

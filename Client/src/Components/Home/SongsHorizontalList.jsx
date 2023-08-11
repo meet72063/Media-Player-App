@@ -24,12 +24,11 @@ const SongsHorizontalList = ({homepage}) => {
   
   return (
   
-    <div className='pl-4 space-y-4'>
-      <div className='flex justify-between mr-12 pr-3'>
-      {homepage && <h1 className='text-3xl text-white font-thin'>New Releases</h1>}
- {homepage &&allSongs.length>5&& <Link to = '/allSongs'> <h1 className='pt-3 text-xl text-red-500 font-sans ' >See more</h1></Link>}
+    <div className='  space-y-4 pl-5 md:pl-10 pr-3'>
+      <div className='flex justify-between items-center xs:pr-3  '>
+      {homepage && <h1 className='sm:text-3xl xs:text-xl text-white font-thin font-Comfortaa'>Popular Around You</h1>}
       </div>
-        <div className=' rounded-lg grid grid-cols-6 pt-1  '>
+        <div className=' rounded-lg grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 pt-1 xs:gap-5 md: '>
     
       {Songs?.map((song, index) => {
          

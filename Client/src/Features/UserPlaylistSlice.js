@@ -16,17 +16,17 @@ const userplaylistSlice = createSlice({
         },
         addToFavouritePlaylist:(state,{payload})=>{
           state.favouritePlaylist.push(payload)
-          console.log(state.favouritePlaylist)
+         
         },
         removeFromFavouritePlaylist:(state,{payload})=>{
           state.favouritePlaylist = state.favouritePlaylist.filter((item)=>item._id!==payload._id)
-          console.log(state.favouritePlaylist)
+          
 
         },
         setFavouritePlaylist:(state,{payload})=>{
-          console.log(payload)
           state.favouritePlaylist = payload
-        }
+        },
+    
     },
    
 })

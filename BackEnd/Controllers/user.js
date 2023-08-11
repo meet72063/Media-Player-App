@@ -207,6 +207,19 @@ const getAllArtists = async(req,res)=>{
   res.status(StatusCodes.OK).json({artists:response,message:"successful"})
 }
 
+//getCatogries playlists
+
+const getAllCatogriesPlaylist = async(req,res)=>{
+  try {
+    const catogories = await PlayList.find({catogory:true})
+    res.status(StatusCodes.OK).json({catogories,status:'success'})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 
 module.exports = 
 {creatUser,
@@ -220,7 +233,7 @@ module.exports =
   editPlaylist,
   getPlaylist,
   getAllPlaylist,
-  addingSongs,
   getAllArtists,
-  favouriteSongs
+  favouriteSongs,
+  getAllCatogriesPlaylist
 }

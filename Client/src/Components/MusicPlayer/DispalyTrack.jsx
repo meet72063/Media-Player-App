@@ -75,7 +75,7 @@ return (
    
  <div className='flex flex-col gap-y-3 '>
 
-   <div  className='  flex place-content-center gap-x-2 rounded-3xl ' >
+   <div  className=' xs:pl-8 pl-0 flex place-content-center gap-x-2 rounded-3xl ' >
         <audio src={currentplaying?.url} ref={audioRef} onLoadedMetadata={onLoadedMetadata} onEnded={handleEnded} ></audio>
         
        <span >{formatTime(progressValue)}</span> <input type="range"className='w-[800px] ' defaultValue={0} onChange={handleChange} ref={progressRef} /><span>{formatTime(duration)}</span>

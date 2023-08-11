@@ -4,6 +4,7 @@ const {artistValidation,Artist} = require("../models/Artist")
 const { Song, songValidate } = require("../models/song");
 const { StatusCodes } = require("http-status-codes");
 
+
 //accessing all users
 const getAllusers = async (req, res) => {
   const users = await User.find({});
@@ -146,23 +147,54 @@ const updateArtist = async(req,res)=>{
 
 const addingSongs = async (req,res)=>{
 
+
+  //adding songs to aritst playlist
   const{id} = req.params
-  // const artist = await Artist .find({_id:id})
-  
-  // if(!artist){
-  //   res.status(404).json({error:"not found artist"})
-
-  // }
-  // artist[0].albums.push(req.body)
-
   const updatedartist =  await Artist.findOneAndUpdate({_id:id},{
     $push:{
-      albums:req.body
+      albums:{...req.body,_id:Date.now()},
+      
     }
   })
  res.status(StatusCodes.OK).json({updatedartist,msg:'artist has been updated successfullly'})
   
 }
+
+// making catgory playlist
+const CatogoryPlaylist = async (req,res)=>{
+  const {error} = playlistValidaion(req.body)
+  if(error){
+    res.status(StatusCodes.BAD_REQUEST).json({error:error.details[0].message})
+    return
+  }
+
+  const {body,user:{userId}}=req
+  const playListExist = await PlayList.findOne({user:userId,name:body.name})
+  if(playListExist!==null){
+    res.status(StatusCodes.BAD_REQUEST).json({message:'playlist already exit with this name'})
+    return
+  }
+  const newplaylist = await PlayList.create({user:userId,catogory:true,...body})
+  res.status(StatusCodes.OK).json({message:'New playlist created',newplaylist})
+}
+
+
+const addSongtoCatogoryPlaylist = async (req,res)=>{
+  const {catogory}  = req.params
+  try {
+    const playlist = await PlayList.findOneAndUpdate({name:catogory},{
+      $push:{
+        songs:{...req.body,_id:Date.now()}
+        
+      }
+    })
+    res.status(200).json({playlist,msg:`song added to ${catogory}`})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 
 module.exports = {
   getAllusers,
@@ -176,5 +208,11 @@ module.exports = {
   updateArtist,
   addArtist,
   removeArtist,
-  addingSongs
+  addingSongs,
+  CatogoryPlaylist,
+  addSongtoCatogoryPlaylist,
+ 
 };
+
+
+

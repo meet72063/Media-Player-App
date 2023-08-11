@@ -8,13 +8,15 @@ const initialState = {
     allSongs:{},
     error:false,
     songsLoading:true,
-    allArtist:'',
+    allArtist:[],
     ArtistFetchError:false,
     artistLoading:true,
     songs:[],
     currentArtist:'',
-  
+    catogories:[],
+    Library:[]
 }
+
 
 
  const currentTrack = createSlice({
@@ -57,6 +59,13 @@ const initialState = {
       setcurrentArtist:(state,{payload})=>{
         state.currentArtist = payload
       },
+      setCatogories:(state,{payload})=>{
+        state.catogories = payload
+      },
+      setLibrary:(state,{payload})=>{
+        state.Library = payload
+      }
+     
     }
     
 })
@@ -72,6 +81,8 @@ export const {setCurrentTrack,
   setArtistLoading,
   setartistSongs,
   setcurrentArtist,
+  setCatogories,
+  setLibrary
     }  = currentTrack.actions
 export default currentTrack.reducer
 

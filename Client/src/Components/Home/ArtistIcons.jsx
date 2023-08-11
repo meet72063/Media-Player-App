@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom'
 const ArtistIcons = ({img,name,_id}) => {
   const navigate = useNavigate()
   return (
-    <div className='space-y-2 text-red-400  text-lg font-semibold' onClick={()=>navigate(`artist/${_id}`)}>
-           <img src={img} className='w-[150px] h-[150px] rounded-[100px]'  alt='img'/>
-           <h1 className='pl-8 font-light ml-5'>{name}</h1>
+    <div className='space-y-1 text-red-400  text-lg font-semibold flex flex-col items-center '>
+           <img src={img} className='w-[150px] h-[150px] cursor-pointer rounded-[100px] border-[0.1px] border-zinc-400'  onClick={()=>navigate(`/artist/${_id}`)}  alt='img'/>
+           <span className=' font-bold font-cursive xs:text-lg sm:text-2xl tracking-wide text-green-300 cursor-pointer drop-shadow-[0_1.9px_1.2px_rgba(0,0,0,1)] ' onClick={()=>navigate(`/artist/${_id}`)}>{name}</span>
     </div>
 
   )

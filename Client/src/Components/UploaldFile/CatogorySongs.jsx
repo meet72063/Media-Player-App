@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { app } from '../../../config/fireBase.-config'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
 import { CloudUpload } from '@mui/icons-material'
-
+import axios from 'axios'
 import IsUploading from './IsUploading'
 import TrackUpload from './TrackUpload'
 import {addingSongs} from '../../api/admin'
@@ -19,12 +19,11 @@ const storage = getStorage(app)
 
 
 
-const UploadSongtoArtist = () => {
+const CatogorySongs = () => {
   const [isUploading, setIsuploading] = useState({song:false,songCover:false})
   const [songprogressValue, setsongProgressValue] = useState(0)
   const [songCovergprogressValue,setSongCoverPogrssValue] = useState(0)
-  const [select,setSelect] = useState('')
-  const {allArtist} = useSelector(store=>store.currentTrack)
+//   const [select,setSelect] = useState('')
 
   
 
@@ -36,7 +35,7 @@ const UploadSongtoArtist = () => {
     setSongDetails({...songDetails,[e.target.name]:e.target.value})
   }
   
-  const  { } = useSelector((store)=>store.currentTrack)
+//   const  { } = useSelector((store)=>store.currentTrack)
 
   const deleteFile = (fileName) => {
     
@@ -67,12 +66,9 @@ const UploadSongtoArtist = () => {
 
 
   const uploadHanlder = (e) => {
-    if(!songDetails.Artist){
-      alert("provide artist name first")
-      return
-    }
-
-    const storageRef = ref(storage, `Artists_playlist/${songDetails.Artist}/${e.target.files[0].name}-${Date.now()}`)
+  
+console.log('started uploading')
+    const storageRef = ref(storage, `CatogoryPlaylist/Hip-Hop/${e.target.files[0].name}-${Date.now()}`)
 
     const metadata = {
       contentType: 'audio/mpeg',
@@ -106,12 +102,12 @@ const UploadSongtoArtist = () => {
   }
 
   const CoverUploadHanlder = (e) => {
-    if(!songDetails.Artist){
-      alert("provide artist name first")
-      return
-    }
+    // if(!songDetails.Artist){
+    //   alert("provide artist name first")
+    //   return
+    // }
 
-    const storageRef = ref(storage, `Artists_playlist/${songDetails.Artist}/${e.target.files[0].name}-${Date.now()}`)
+    const storageRef = ref(storage, `Catorgory_playlist/${songDetails.Artist}/${e.target.files[0].name}-${Date.now()}`)
 
     const metadata = {
       contentType: 'img/jpg',
@@ -157,13 +153,9 @@ const UploadSongtoArtist = () => {
         return
        }
 
-       if(!select){
-        alert('please choose the artist to whom you want to upload ')
-        return
-       }
+      
        try {
-        const res=  await addingSongs({url:songDetails.url,name:songDetails.name,img:songDetails.img,artist:songDetails.Artist},select)
-      console.log(res)
+        const res=  await axios.patch('http://localhost:5000/admin/addToCatogoryPLaylist/Chill',{url:songDetails.url,name:songDetails.name,img:songDetails.img,artist:songDetails.Artist})
     console.log('uploaded succesfully')
        } catch (error) {
         console.log(error)
@@ -187,14 +179,14 @@ const UploadSongtoArtist = () => {
        
         {
           isUploading.songCover ? <IsUploading progress={songCovergprogressValue} /> : <div className='bg-white text-center flex flex-col justify-center rounded-lg  w-[500px] '>
-            {!state.songCover ? <label htmlFor="upload" className='cursor-pointer'>
+            {!state.songCover ? <label htmlFor="cover" className='cursor-pointer'>
 
 
               <div className='space-x-3 text-lg'>
                 <CloudUpload /><span className='text-red-400 '>Upload Song Cover</span>
               </div>
             </label> : <SongCoverUpload songCover={state.songCover} deleteFile={deleteFile} />}
-            <input type="file" id='upload' name='songCover' onChange={CoverUploadHanlder} className='hidden cursor-auto' accept='jpg/png' />
+            <input type="file" id='cover' name='songCover' onChange={CoverUploadHanlder} className='hidden cursor-auto' accept='jpg/png' />
 
           </div>}
 
@@ -215,8 +207,8 @@ const UploadSongtoArtist = () => {
 
       <div className=' flex justify-evenly text-lg '>
         <div className='space-x-2 '>
-          <label  htmlFor="SongName" className='font-semibold'>Song Name</label>
-          <input id='SongName' name='name' type="text" className='pl-1' value={songDetails.name} onChange={handleChange} />
+          <label  htmlFor="trackName" className='font-semibold'>Song Name</label>
+          <input id='trackName' name='name' type="text" className='pl-1' value={songDetails.name} onChange={handleChange} />
         </div>
         <div className='space-x-2'>
           <label htmlFor="Artist" className='font-semibold'>Artist Name</label>
@@ -227,7 +219,7 @@ const UploadSongtoArtist = () => {
           <button onClick={submitSong} className='bg-red-400 w-48 rounded-lg border-sky-200'>Save</button>
         </div>
   
-    <label htmlFor="artist">Choose Artist</label>
+    {/* <label htmlFor="artist">Choose Artist</label>
    <select name="artist" id="artist" onChange={(e)=>setSelect(e.target.value)}>
     <option value=''></option>
    { allArtist.map((a,index)=>{
@@ -235,7 +227,7 @@ const UploadSongtoArtist = () => {
    })}
       
    </select>
-     
+      */}
 
       </div>
     </div>
@@ -245,7 +237,7 @@ const UploadSongtoArtist = () => {
 }
 
 
-export default UploadSongtoArtist
+export default CatogorySongs 
 
 
 

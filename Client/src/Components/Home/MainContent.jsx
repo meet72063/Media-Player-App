@@ -1,14 +1,20 @@
 import React from 'react'
 import SongsHorizontalList from './SongsHorizontalList'
 import ArtistsIconsList from './ArtistsIconsList'
+import Cartogories from './Catagories/Cartogories'
+import Searchbar from './SearchBar/Searchbar'
+
+
+
 
 const MainContent = () => {
   return (
-    <div className='bg-transparent flex gap-3 h-[90%] pb-1  pl-3 pr-3'>
-        <div className=' bg-transparent-800 w-full pt-3'>
+    <div className='bg-transparent flex gap-3   pr-3 pb-32 mt-5'>
+        <div className=' bg-transparent-800 w-[100%] pt-3 outline-none  p-5 space-y-20'>
+             <Searchbar/>
             <SongsHorizontalList homepage={true}/>
-           
             <ArtistsIconsList/>
+            <Cartogories/>
  </div>
 </div>
   )

@@ -20,9 +20,9 @@ const Favourites = () => {
 
   
   return (
-    <div className='bg-black flex gap-3  pb-1  pl-3 pr-3'>
+    <div className='bg-black flex gap-3  pb-1 min-h-screen pl-3 pr-3'>
     <div className=' bg-zinc-800 w-full  text-white '>
-      <div className=' pr-1 grid grid-cols-[160px_1200px]'>
+      <div className=' pr-1 grid sm:grid-cols-[160px_1fr]'>
         <div className=' bg-zinc-900 border-gray-700 border-r-[0.5px]'>
 
         </div>
@@ -31,7 +31,7 @@ const Favourites = () => {
             <img src="/music13.jpg" alt="artist img" className='w-[210px] h-[210px] rounded-lg pl-1 mt-4 ' />
             <div className='ml-4 pr-10'>
                <h2 className='pt-2 text-red-400 mb-4'>Playlist</h2>
-             <h2 className='text-6xl text-red-500 mb-4 '>Favourites</h2>
+             <h2 className='sm:text-6xl text-red-500 mb-4 '>Favourites</h2>
 
              these are your favourite songs 
 

@@ -29,7 +29,7 @@ const Details = ({setEditProfile}) => {
               </div>
               <div className='flex justify-between border-b-[0.3px] pb-2'>
                 <h1>Country or origion</h1>
-                <h1 className='text-gray-700'>{data.country}</h1>
+                <h1 className='text-gray-700'>{data?.country}</h1>
               </div>
 
             </div>

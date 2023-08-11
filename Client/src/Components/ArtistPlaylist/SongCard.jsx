@@ -6,7 +6,7 @@ import { setPlayList } from '../../Features/SongSlice'
 
 
 
-const SongCard = ({name,url,albums,_id}) => {
+const SongCard = ({name,url,albums,_id,artist,img}) => {
  
   const {currentplaying,isPlaying} = useSelector(store=>store.currentTrack)
   const [playing,setPlaying] = useState(false)
@@ -39,13 +39,15 @@ const SongCard = ({name,url,albums,_id}) => {
   
   return (
     <div>
-       <div className='bg-red-300 h-14 w-[800px] rounded-md pl-5'>
-        <div className='flex place-items-center justify-between pr-7 '>
-            <div className='flex gap-28 pt-2 d'>
-                <img src="/musicwheel.png" alt="" className=' h-10 w-10'/>
-            <h2 className='text-2xl font-extralight text-black'>{name}</h2>
-            </div>
-            <div className=''>
+       <div className='bg-red-300 h-14  sm:w-[80%] sm:mr-8 rounded-md pl-5  '>
+        <div className='flex items-center justify-between '>
+                <img src={img||"./musicwheel.png"} alt="" className=' h-10 w-10  pt-1 rounded-lg pr-1'/>
+                
+                  <h1 className=' xs:text-sm xs:text-black   sm:text-2xl font-extralight text-black'>{name}</h1>
+               <h1 className='  text-rose-900 font-thin tracking-wider xs:text-sm sm:text-lg'>{artist}</h1>
+                
+         
+            <div className='pr-4'>
               <button onClick={handlePlaying}>{playing?<PauseSharp/>:<PlayArrowSharp/>}</button>
                   
             </div>

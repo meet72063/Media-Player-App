@@ -28,25 +28,18 @@ export const getAllArtists = async()=>{
 }
 
 
-//create new playlist
+// getting all the catogories playlists
 
-export const createNewPlaylist = async (data)=>{
-  console.log(token)
-  const res = await axios.post(`${baseUrl}/newplaylist`,data,{headers:{
-    'Authorization': `Bearer ${token}`
-  }})
-  return res.data
+
+export const getCatogories = async()=>{
+ const res = await axios.get(`${baseUrl}/getCatogories`)
+ return res.data.catogories
+
 }
 
 
-// Get Allplaylist
 
-export const getAllPlaylist = async(data)=>{
-  console.log(token)
- const res = await axios.get(`${baseUrl}/getallplaylists`,{
-  headers:{
-    'Authorization':`Bearer ${token}`
-  }
- })
- return res.data.playlists
-}
+
+
+
+

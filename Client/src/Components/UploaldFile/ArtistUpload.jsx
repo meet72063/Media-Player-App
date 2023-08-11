@@ -212,7 +212,7 @@ if(error){
             </div>
           </div>
 
-          <div className='flex justify-end pr-52'>
+          <div className='flex justify-end pr-52 mb-52'>
             <button className='text-lg p-2 border-red-400 border-2 w-20  rounded-lg' onClick={saveToDataBase}>Save</button>
 
           </div>

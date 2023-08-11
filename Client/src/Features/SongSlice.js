@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const ShufflePlaylist = (arr)=>{
+  for(let i=arr.length-1;i>=0;i--){
+    let  j = Math.floor(Math.random()*(i+1))
+   let temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+  }
+  return arr
+}
 
 
  const songSlice = createSlice({
@@ -7,6 +16,7 @@ import { createSlice } from "@reduxjs/toolkit";
     initialState:{
       playlist:[],
       createPlaylist:[],
+      shuffle:false
 
      
     },
@@ -22,7 +32,14 @@ import { createSlice } from "@reduxjs/toolkit";
      },
      clearCreatePlaylist:(state)=>{
       state.createPlaylist=[]
-     }
+     },
+     shuffleSongs :(state)=>{
+      const songs = ShufflePlaylist(state.playlist)
+     state.playlist = songs
+    },
+    setShuffle:(state,{payload})=>{
+      state.shuffle = payload
+    }
     }
     
 })
@@ -31,4 +48,4 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export default songSlice.reducer
 
-export const {setPlayList,addToCreatePlaylist,removeFromCreatePlaylist,clearCreatePlaylist} = songSlice.actions
+export const {setPlayList,addToCreatePlaylist,removeFromCreatePlaylist,clearCreatePlaylist,shuffleSongs,setShuffle} = songSlice.actions

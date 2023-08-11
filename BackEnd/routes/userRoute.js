@@ -16,7 +16,8 @@ const {
   getAllPlaylist,
   addingSongs,
   getAllArtists,
-  favouriteSongs
+  favouriteSongs,
+  getAllCatogriesPlaylist
 } = require("../Controllers/user");
 
 router.route("/signUp").post(creatUser);
@@ -32,8 +33,8 @@ router.route("/deleteplaylist/:playlistId").delete(userAuth, deltePlaylist);
 router.route("/editplaylist/:playlistId").patch(userAuth, editPlaylist);
 router.route("/getplaylist/:playlistId").get(userAuth, getPlaylist);
 router.route("/getallplaylists").get(userAuth, getAllPlaylist);
-router.route("/addsongtoplaylist/:playlistId").post(userAuth, addingSongs);
 router.route("/getAllArtists").get(getAllArtists)
+router.route("/getCatogories").get(getAllCatogriesPlaylist)
 
 
 

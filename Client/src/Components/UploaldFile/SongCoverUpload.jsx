@@ -2,6 +2,7 @@ import { DeleteOutline } from '@mui/icons-material'
 import React from 'react'
 
 const SongCoverUpload = ({songCover,deleteFile}) => {
+    console.log(songCover)
     return (
         <> <div className='relative'>
              <div className='flex justify-center  '>

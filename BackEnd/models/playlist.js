@@ -19,6 +19,10 @@ const PlaylistSchema = mongoose.Schema({
         type:Array,
         default:[],
     },
+    catogory:{
+        type:Boolean,
+        default:false
+    }
     
 },{timestamps:true})
 
