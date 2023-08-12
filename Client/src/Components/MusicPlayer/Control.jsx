@@ -7,7 +7,7 @@ import Error from '../SharedComponents/Error'
 import {faHeart,faShuffle} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {addToFavouritePlaylist,removeFromFavouritePlaylist} from '../../Features/UserPlaylistSlice'
-import {setOpenModal} from '../../Features/modalSlice'
+import {setLoginModal} from '../../Features/modalSlice'
 import axios from 'axios'
 
 
@@ -78,8 +78,9 @@ useEffect(()=>{
  }
 
  const favouriteHandler = ()=>{
+  let token = localStorage.getItem("token")
   if(!token){
-    dispatch( setOpenModal(true))
+    dispatch( setLoginModal(true))
     return
   }
   if(favourite){
@@ -186,7 +187,7 @@ useEffect(()=>{
         <FontAwesomeIcon icon={faShuffle} onClick={shuffleBtnHandler}/>
        </button> 
       
-      <button className='ml-1' onClick={favouriteHandler}>
+      <button className='ml-2 relative' onClick={favouriteHandler} >
         {favourite?<FontAwesomeIcon icon={faHeart} style={{color: "#e61414",}} />: 
         <FontAwesomeIcon icon={faHeart} />
       } 

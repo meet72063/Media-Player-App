@@ -1,60 +1,57 @@
 import React from 'react'
 import { useState } from 'react';
-import { NavLink, useNavigate} from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp';
 
 
 
 const Navbar = () => {
-  const [dropDown , setDropDown] = useState(false)
+  const [dropDown, setDropDown] = useState(false)
   const navigate = useNavigate()
-  
-  const logOut =()=>{
+
+  const logOut = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userDetails')
     navigate('/login')
   }
-  
-  return (
-    <nav className='flex bg-black text-white w-screen h-20 justify-between pl-16 '>
-      <div className='flex '>
-        <div className="flex space-x-2  items-center ">
-          <NavLink to='/'>
-            <img src="./Spotify.png" alt="spotify icon" className="w-9 " />
-          </NavLink>
-          <span className=" font-semibold text-2xl pr-3">Musica</span>
-         </div>
-       </div>
-       <div className='flex mr-3' >
-          <div className='flex text-1xl font-semibold  mt-6 space-x-8 mr-20'>
-            <h1>Premium</h1>
-            <h1>Support</h1>
-            <h1>Download</h1>
-            <span>|</span>
-            <div className='text-white flex space-x-3 justify-center'>
-             <AccountCircleOutlinedIcon/>
-             
-             <span className='mr-10'>Profile</span>
-             <div className='flex flex-col align-middle ml-9'>
-             <KeyboardArrowDownSharpIcon onClick={()=>setDropDown(!dropDown)}/>
 
-              
-              {dropDown? <div className='bg-black text-white ml-6 cursor-pointer  pr-2 pl-2 rounded-sm' onClick={logOut} >
-                  <h1  >log Out</h1>
-              </div>:''}
-              
-             </div>
-             
-             </div>
-           
+  return (
+    <nav className='flex bg-black text-white w-full h-20 justify-between items-center '>
+      <div className='flex '>
+
+        <NavLink to='/' className="flex space-x-2  items-center ">
+          <img src="./Spotify.png" alt="spotify icon" className="w-9 " /> <span className=" font-semibold text-2xl pr-3">Musica</span>
+        </NavLink>
+      </div>
+      <div className='' >
+        <div className='flex text-1xl font-semibold '>
+          <Link to='/playlists'>Playlists</Link>
+          <Link to='/favourites'>Favourites</Link>
+          <span>|</span>
+          <div className='text-white flex space-x-3 justify-center'>
+            <AccountCircleOutlinedIcon />
+
+            <span className=''>Profile</span>
+            <div className='flex flex-col  '>
+              <KeyboardArrowDownSharpIcon onClick={() => setDropDown(!dropDown)} />
+
+
+              {dropDown ? <div className='bg-black text-white  cursor-pointer   rounded-sm' onClick={logOut} >
+                <h1  >log Out</h1>
+              </div> : ''}
+
             </div>
-           
-           
 
           </div>
-         
-     
+
+        </div>
+
+
+
+      </div>
+
+
     </nav>
   )
 }

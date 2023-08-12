@@ -14,7 +14,7 @@ const Card = () => {
                Play any song,any time,with ads. 
              
             </div>
-            <div className='text-3xl pl-5 font-bold pt-6'>
+            <div className='text-3xl tracking-wide pl-5 font-bold pt-6'>
                 Free
             </div>
           

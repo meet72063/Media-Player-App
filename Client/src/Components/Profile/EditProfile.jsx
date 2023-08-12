@@ -68,8 +68,8 @@ const EditProfile = ({setEditProfile}) => {
 
 
     return (
-        <div>
-            <h1 className='font-semibold text-6xl '>Edit profile</h1>
+        <div className=''>
+            <h1 className='font-semibold text-4xl sm:text-6xl '>Edit profile</h1>
             <form action="" className='mt-10 space-y-6'>
                 <div className='space-y-2'>
                     <div  className='flex space-x-10'>
@@ -82,13 +82,13 @@ const EditProfile = ({setEditProfile}) => {
                         value={userDetails.email}
                         onChange={handleChange}
                         name='email'
-                        className='w-[33rem] h-[3rem] rounded-md p-3 font-semibold border-gray-300 border-[1.3px]  outline-gray-500' />
+                        className='w-full h-[3rem] rounded-md p-3 font-semibold border-gray-300 border-[1.3px]  outline-gray-500' />
 
                 </div>
 
                 <div className='space-y-2'>
                     <label htmlFor="gender" className='font-semibold'>Gender</label>
-                    <select id="gender" name='gender' onChange={handleChange} className="bg-white border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  " defaultValue={gender} >
+                    <select id="gender" name='gender' onChange={handleChange} className="bg-white border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   w-full p-2.5   dark:placeholder-gray-400 dark:text-white  " defaultValue={gender} >
                         <option value={userDetails.gender} className='capitalize' >{userDetails.gender}</option>
                         <option value="female" >Female</option>
                         <option value="Male">Male</option>
@@ -113,10 +113,10 @@ const EditProfile = ({setEditProfile}) => {
                             className=' bg-white pl-14 border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white' />
 
 
-                        <select id="month" name='month' defaultValue={month} className="bg-white border pl-14 h-10 border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
+                        <select id="month" name='month' defaultValue={month} className="bg-white border  h-10 border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
                             <option value={month} className='capitalize'>{month}</option>
                             {years.map((item, index) => {
-                                if (item !== 'August') return <option key={index} className='capitalize' value={item}>{item}</option>
+                                if (item !== 'August') return <option key={index} className='capitalize px-5' value={item} >{item}</option>
 
                             })}
                         </select>
@@ -145,13 +145,13 @@ const EditProfile = ({setEditProfile}) => {
                     </div>
 
                     <div className='flex justify-end space-x-3'>
-                    <button className="rounded-full bg-transparent px-10 mt-5 py-3 text-base font-bold text-black transition duration-200 hover:bg-gray-100 active:outline-1 active:outline-black  dark:text-white dark:hover:bg-green-300  "
+                    <button className="rounded-full bg-transparent px-10 mt-5  py-3 text-base font-bold text-black transition duration-200 hover:bg-gray-100 active:outline-1 active:outline-black  dark:text-white dark:hover:bg-green-300  "
                        type='button'   onClick={()=>setEditProfile(false)}>
                             cancel
                         </button>
-                        <button className="rounded-full bg-green-400 px-10 mt-5 py-3 text-base font-bold text-black transition duration-200 hover:bg-green-600 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 "
+                        <button className="rounded-full bg-green-400 px-10 mt-5  py-3 text-base font-bold text-black transition duration-200 hover:bg-green-600 active:bg-green-700 dark:bg-green-400 dark:text-white dark:hover:bg-green-300 dark:active:bg-green-200 hover:px-11 "
                             type="submit" onClick={handleSubmit}>
-                            Save profile
+                            Save 
                         </button>
                     </div>
 

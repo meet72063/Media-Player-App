@@ -4,10 +4,10 @@ import {NavLink} from 'react-router-dom'
 
 const AlmostDone = () => {
   return (
-    <div>
+    <div className=' bg-slate-400  max-h-screen pb-40'>
       <main>
         <div className='flex-col '>
-        <div className="bg-white pt-[32px] pb-[28px] pl-[51px] pr-[0px] text-black flex flex-col align-center ">
+        <div className=" p-3  text-black flex flex-col align-center ">
         <div className="flex space-x-2 justify-center pr-6 ">
           <NavLink to='/home'>
             <img src="./spotify2.png" alt="spotify icon" className="w-9"/>
@@ -19,10 +19,10 @@ const AlmostDone = () => {
         </div>
         
        
-      </div>
+      </div >
       
         
-          <div className='flex justify-center'>
+          <div className='flex justify-center '>
             <Form />
            
           </div>

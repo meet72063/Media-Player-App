@@ -11,18 +11,21 @@ import { useNavigate } from 'react-router-dom'
 
 
 const SongCard = ({ name, url, albums, img, artist ,_id}) => {
+   
     const [selected, setSelected] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSelected = ()=>{
+       
         setSelected(!selected)
         if(selected){
              dispatch(removeFromCreatePlaylist({name,url,img,_id,artist}))
     
     }
     else{
+        
         dispatch(addToCreatePlaylist({name,url,img,_id,artist}))
     }
     }

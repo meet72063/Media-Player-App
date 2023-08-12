@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import MainContent from '../Components/Home/MainContent'
 
 import { useDispatch } from 'react-redux'
 import { GetAllSongs,setError,setSongLoading,GetAllArtists,setArtistFechError,setArtistLoading,setCatogories} from '../Features/CurrentTrack'
 
 import { getAllSongs,getAllArtists,getCatogories} from '../api/user'
+import Loading from '../Components/SharedComponents/Loading'
 
 
 
@@ -12,6 +13,7 @@ import { getAllSongs,getAllArtists,getCatogories} from '../api/user'
 
 
 const Home = () => {
+  const [loading ,setLoading] = useState(false)
  
   const dispatch = useDispatch()
 
@@ -21,15 +23,20 @@ const Home = () => {
    
     const gettingsongs = async () => {
       try {
+        setLoading(true)
         const { songs } = await getAllSongs()
         dispatch(GetAllSongs(songs))
        dispatch( setSongLoading(false))
        dispatch(setError(false))
+       setLoading(false)
 
       } catch (error) {
         console.log(error)
         dispatch( setSongLoading(false))
         dispatch(setError(true))
+       setLoading(false)
+
+        
       }
 
     }
@@ -69,7 +76,9 @@ useEffect(()=>{
 },[])
 
 
-
+if(loading){
+   return <div className='h-screen'><Loading/></div>
+}
 
 
 

@@ -182,7 +182,7 @@ const CatogoryPlaylist = async (req,res)=>{
 const addSongtoCatogoryPlaylist = async (req,res)=>{
   const {catogory}  = req.params
   try {
-    const playlist = await PlayList.findOneAndUpdate({name:catogory},{
+    const playlist = await PlayList.findOneAndUpdate({_id:catogory},{
       $push:{
         songs:{...req.body,_id:Date.now()}
         

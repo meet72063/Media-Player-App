@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import {getData} from "../../localStorage"
-import { setOpenModal } from '../../Features/modalSlice'
+import { setLoginModal } from '../../Features/modalSlice'
 import {setFavouritePlaylist} from '../../Features/UserPlaylistSlice'
 
 
@@ -30,7 +30,7 @@ const NavLinks = () => {
    const navigation = (e)=>{
     if(!userDetails){
       e.preventDefault()
-      dispatch(setOpenModal(true))
+      dispatch(setLoginModal(true))
 
     }
    }

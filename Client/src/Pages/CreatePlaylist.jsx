@@ -10,9 +10,10 @@ import axios from 'axios'
 const CreatePlaylist = () => {
   const { allSongs } = useSelector(store => store.currentTrack)
   const { createPlaylist } = useSelector(store => store.songs)
-  const {favouritePlaylist} = useSelector(store=>store.playlists)
+  const { favouritePlaylist } = useSelector(store => store.playlists)
   const [playlistInfo, setPlaylistInfo] = useState({ name: '', description: '' })
   const [loading, setLoading] = useState(false)
+  const [Alert, setAlert] = useState('')
 
 
   const dispatch = useDispatch()
@@ -22,12 +23,15 @@ const CreatePlaylist = () => {
 
   const navigate = useNavigate()
   const handleInput = (e) => {
+  if(e.target.name==='name'){
+    setAlert('')
+  }
     setPlaylistInfo({ ...playlistInfo, [e.target.name]: e.target.value })
   }
 
   const submitPlaylist = async () => {
     if (!playlistInfo.name) {
-      alert('please provide name of the playlist')
+    setAlert('please provide name of the playlist')
       return
     }
     if (createPlaylist.length === 0) {
@@ -39,9 +43,11 @@ const CreatePlaylist = () => {
     let token = localStorage.getItem("token")
     try {
       setLoading(true)
-      const res = await axios.post(`http://localhost:5000/newplaylist`,data,{headers:{
-        'Authorization': `Bearer ${token}`
-      }})
+      const res = await axios.post(`http://localhost:5000/newplaylist`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       navigate('/playlists')
       setLoading(false)
     } catch (error) {
@@ -52,8 +58,8 @@ const CreatePlaylist = () => {
 
   if (loading) {
     return <div className='min-h-screen'>
-             <Loading />
-           </div>
+      <Loading />
+    </div>
 
   }
 
@@ -77,19 +83,21 @@ const CreatePlaylist = () => {
           <TextField id="playlistDiscription" name='description' variant="standard" sx={{ input: { color: 'white', width: "40vw" } }} autoComplete='off' onChange={handleInput} className='flex flex-wrap' />
         </div>
       </div>
+
+      <h1 className='text-red-500 ml-7 mt-2 bg-transparent  '> {Alert}</h1>
       <div className='ml-10 mt-10 space-y-2 mr-10 border-zinc-800'>
 
         <h1 className=' text-red-300 text-3xl font-semibold  '>Add Songs</h1>
-   <div>
-      <h2 className='font-thin  text-zinc-300'>from library</h2>
-      <div className='mt-10 grid lg:grid-cols-3  md:grid-cols-2 gap-4 '>
-        {allSongs.map((song, index) => {
-          return <SongCard key={index} {...song} />
-        })}
+        <div>
+          <h2 className='font-thin  text-zinc-300'>from library</h2>
+          <div className='mt-10 grid lg:grid-cols-3  md:grid-cols-2 gap-4 '>
+            {allSongs.map((song, index) => {
+              return <SongCard key={index} {...song} />
+            })}
 
-      </div>
-   </div>
-        
+          </div>
+        </div>
+
       </div>
 
       <div className='mt-10 grid grid-cols-3 gap-x-10 gap-y-1 ml-8'>

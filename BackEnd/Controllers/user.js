@@ -162,6 +162,7 @@ const newPlayList = async (req,res)=>{
 
 const deltePlaylist = async (req,res)=>{
   const {params:{playlistId},user:{userId}} = req
+  console.log(req.body,req.params)
   const deltedPlaylist  = await PlayList.findOneAndDelete({_id:playlistId,user:userId})
   res.status(StatusCodes.OK).json({message:'playlist has been deleted successfully',deltedPlaylist})
 }

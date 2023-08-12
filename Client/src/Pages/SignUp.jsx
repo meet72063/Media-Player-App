@@ -1,24 +1,15 @@
 import React from "react";
 import Input from '../Components/SignUp/Input'
-import { NavLink } from "react-router-dom";
 
 
 const SignUp = () => {
   return (
-    <div className=" h-full">
-      <div className="bg-black pt-[32px] pb-[32px] pl-[51px] pr-[0px] text-white">
-        <div className="flex space-x-1  items-center ">
-          <NavLink to='/' className="flex space-x-2">
-            <img src="./Spotify.png" alt="spotify icon" className="w-9" />
-          
-          <span className=" font-semibold text-2xl ">Musica</span>
-          </NavLink>
-        </div>
-      </div>
-      <div className="flex p-[32px] bg-[rgba(22,22,22)] justify-center">
-        <div className="w-[734px] h-screen  ">
-          <div className=" flex flex-col  text-white h-screen bg-black  rounded items-center">
-            <h1 className=" flex mt-20 font-bold text-5xl mr-0 mb-20 ml-0 justify-center">Sign Up to Musica</h1>
+    <div className=" h-screen  sm:h-full xl:h-full  max-w-full bg-[rgba(22,22,22)] pb-40">
+     
+      <div className="  w-full  pt-5 ">
+        <div className="  grid place-content-center     ">
+          <div className=" flex flex-col  text-white p-5 sm:p-10    bg-black  rounded items-center  ">
+            <h1 className=" flex  font-bold text-3xl   mb-10 p-2 ">Sign Up to Musica</h1>
 
             <div>
               <Input />

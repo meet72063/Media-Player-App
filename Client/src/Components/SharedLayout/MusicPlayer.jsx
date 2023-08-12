@@ -2,8 +2,9 @@ import React, {useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import AudioPlayer from '../MusicPlayer/AudioPlayer'
 import { useDispatch, useSelector } from 'react-redux'
-import Modal from './Modal'
+import LoginModal from '../../Modals/LoginModal'
 import Header from '../Layout/Header'
+import DeletePlaylistModal from '../../Modals/DeletePlaylistModal'
 
 
 
@@ -15,7 +16,7 @@ const MusicPlayer = () => {
      
  
     
-     const {openModal}= useSelector(store=>store.modal)
+     const {openLoginModal,openDeletePlaylistModal}= useSelector(store=>store.modal)
     
     
   return (
@@ -23,7 +24,9 @@ const MusicPlayer = () => {
      
      
       <div >
-      {openModal && <Modal/> }
+      {openLoginModal && <LoginModal/> }
+      {openDeletePlaylistModal &&<DeletePlaylistModal/>}
+       
         
         <Header/>
        

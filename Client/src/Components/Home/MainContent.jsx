@@ -3,6 +3,7 @@ import SongsHorizontalList from './SongsHorizontalList'
 import ArtistsIconsList from './ArtistsIconsList'
 import Cartogories from './Catagories/Cartogories'
 import Searchbar from './SearchBar/Searchbar'
+import { MixedPlaylist } from '../AllSongs/Library'
 
 
 
@@ -15,6 +16,8 @@ const MainContent = () => {
             <SongsHorizontalList homepage={true}/>
             <ArtistsIconsList/>
             <Cartogories/>
+            <MixedPlaylist/>
+
  </div>
 </div>
   )

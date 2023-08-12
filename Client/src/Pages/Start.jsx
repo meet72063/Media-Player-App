@@ -24,9 +24,9 @@ const Start = () => {
   
 
   return (
-    <main>
-       <div className='flex-col border-y-gray-300 border-b-[1px] mb-5 '>
-        <div className="bg-white pt-[20px] pb-[0px] pl-[35px] pr-[0px] text-black flex flex-col align-center ">
+    <main className='bg-slate-300 h-screen'>
+       <div className='flex-col  border-y-gray-300 border-b-[1px] mb-5 '>
+        <div className="pt-[20px] pb-[0px] pl-[35px] pr-[0px] text-black flex flex-col align-center ">
         <div className="flex space-x-2 justify-center pr-6 mb-6">
           <NavLink to='/'>
             <img src="./spotify2.png" alt="spotify icon" className="w-11"/>

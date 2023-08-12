@@ -39,12 +39,12 @@ import { useDispatch } from "react-redux";
     
 
     return (
-      <div color="transparent" className="text-white"  >
+      <div color="transparent" className="text-white flex flex-col items-center "  >
         <h2 variant="h4" color="blue-gray">
           Enter Details 
         </h2>
         {error?<Error error={error} />:''}
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 flex flex-col items-center ">
           <div className="mb-4 flex flex-col gap-6 text-black">
             <div className="flex flex-col space-y-1">
               <label htmlFor="email" className="text-white">Email</label>

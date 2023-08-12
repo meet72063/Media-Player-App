@@ -39,8 +39,9 @@ import Error from "../SharedComponents/Error";
 
     return (
 
-      <div color="transparent"  className="text-white">
-        <h2  color="blue-gray">
+      <div color="transparent"  className="text-white  max-w-[100%]">
+       <div className="grid place-content-center">
+       <h2  color="blue-gray">
           Sign Up
         </h2>
         <h2 color="gray" className="mt-1 text-gray-400 font-normal">
@@ -48,7 +49,8 @@ import Error from "../SharedComponents/Error";
           {error?<Error error={error} />:''}
            
         </h2>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
+       </div>
+        <form className="mt-8 p-2 grid place-content-center ">
           <div className="mb-4 flex flex-col gap-3 align-middle text-black font-semibold">
             <div className="flex flex-col">
                <label htmlFor="name" className="text-white">Name</label>

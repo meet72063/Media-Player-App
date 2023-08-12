@@ -6,8 +6,8 @@ const Details = ({setEditProfile}) => {
 
     const data = getData()
   return (
-    <div>
-            <h1 className='font-semibold text-6xl'>Account overview</h1>
+    <div >
+            <h1 className='font-semibold text-4xl sm:text-6xl'>Account overview</h1>
             <h2 className='mt-10 text-2xl font-semibold'>Profile</h2>
             <div className=' mt-10 space-y-10 font-semibold text-gray-500'>
               <div className='flex justify-between  border-b-[0.3px] pb-3 '>

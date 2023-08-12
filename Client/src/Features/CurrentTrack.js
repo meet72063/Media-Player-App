@@ -5,7 +5,7 @@ const initialState = {
     currentplaying:null,
     isPlaying:false,
     isLoading:true,
-    allSongs:{},
+    allSongs:[],
     error:false,
     songsLoading:true,
     allArtist:[],

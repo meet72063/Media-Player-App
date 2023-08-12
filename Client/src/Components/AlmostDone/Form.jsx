@@ -67,10 +67,10 @@ if(additonalDetails.year.length!==4||(additonalDetails.year[0]!=1&&additonalDeta
 
 
   return (
-    <div color="transparent" >
+    <div color="transparent" className=" p-4 rounded-md">
     {error? <Error error={error} />:''}
 
-      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+      <form className="mt-8 mb-2  sm:w-96">
         <h2 color="gray" className="mb-2  font-bold">
           What should we call you?
         </h2>

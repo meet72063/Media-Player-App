@@ -23,8 +23,11 @@ const CatogorySongs = () => {
   const [isUploading, setIsuploading] = useState({song:false,songCover:false})
   const [songprogressValue, setsongProgressValue] = useState(0)
   const [songCovergprogressValue,setSongCoverPogrssValue] = useState(0)
-//   const [select,setSelect] = useState('')
+  const [select,setSelect] = useState('')
 
+  const {catogories} = useSelector(store=>store.currentTrack)
+
+ 
   
 
   const [state, setState] = useState({song: '' ,songCover:''})
@@ -153,9 +156,11 @@ console.log('started uploading')
         return
        }
 
-      
+      if(!select){
+        alert("please select the catogory")
+      }
        try {
-        const res=  await axios.patch('http://localhost:5000/admin/addToCatogoryPLaylist/Chill',{url:songDetails.url,name:songDetails.name,img:songDetails.img,artist:songDetails.Artist})
+        const res=  await axios.patch(`http://localhost:5000/admin/addToCatogoryPLaylist/${select}`,{url:songDetails.url,name:songDetails.name,img:songDetails.img,artist:songDetails.Artist})
     console.log('uploaded succesfully')
        } catch (error) {
         console.log(error)
@@ -219,15 +224,15 @@ console.log('started uploading')
           <button onClick={submitSong} className='bg-red-400 w-48 rounded-lg border-sky-200'>Save</button>
         </div>
   
-    {/* <label htmlFor="artist">Choose Artist</label>
-   <select name="artist" id="artist" onChange={(e)=>setSelect(e.target.value)}>
+    <label htmlFor="catogory">Choose Catogory</label>
+   <select name="catogory" id="artist" onChange={(e)=>setSelect(e.target.value)}>
     <option value=''></option>
-   { allArtist.map((a,index)=>{
+   { catogories.map((a,index)=>{
     return  <option value={`${a._id}`} key={index}>{a.name}</option>
    })}
       
    </select>
-      */}
+     
 
       </div>
     </div>
