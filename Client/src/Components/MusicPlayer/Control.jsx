@@ -16,7 +16,7 @@ let token
 
 const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration, currentplaying,error,loop,setLoop}) => {
   const { allSongs} = useSelector((store) => store.currentTrack)
-  const {playlist,shuffle} = useSelector(store=>store.songs)
+  const {playlist,shuffle,notShuffledTracks} = useSelector(store=>store.songs)
   const {favouritePlaylist} = useSelector(store=>store.playlists)
  const [favourite ,setFavourite] = useState(false)
  let index 
@@ -107,11 +107,12 @@ useEffect(()=>{
   const setNextSong = () => {
     let maxIndex = playlist.length - 1
     if (index===maxIndex) {
-      dispatch(setPlayList(allSongs))
+      shuffle&&dispatch(setPlayList(allSongs))
       dispatch(setCurrentTrack({ ...playlist[0] }))
       shuffle&&dispatch(shuffleSongs())
 
     }else if(index===undefined){
+      console.log(index)
       dispatch(setCurrentTrack({ ...playlist[0] }))
       
     }
@@ -150,14 +151,13 @@ useEffect(()=>{
 
   //shuffle songs 
   const shuffleBtnHandler = ()=>{
-   
     if(!shuffle){
     dispatch( setShuffle(true))
      dispatch(shuffleSongs())
     }
     else{
       dispatch(setShuffle(false))
-      dispatch(setPlayList(allSongs))
+      dispatch(setPlayList(notShuffledTracks))
     }
   }
 

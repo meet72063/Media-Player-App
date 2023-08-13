@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { PauseSharp, PlaceSharp, PlayArrow, PlayArrowSharp } from '@mui/icons-material'
 import {useDispatch, useSelector} from "react-redux"
 import { setIsplaying,setCurrentTrack,} from '../../Features/CurrentTrack'
-import { setPlayList } from '../../Features/SongSlice'
+import { setPlayList,setNotShuffled } from '../../Features/SongSlice'
+
 
 
 
@@ -34,6 +35,7 @@ const SongCard = ({name,url,albums,_id,artist,img}) => {
     dispatch(setIsplaying(true))
     setPlaying(true)
     dispatch(setPlayList(albums))
+    dispatch(setNotShuffled(albums))
 
   }
   

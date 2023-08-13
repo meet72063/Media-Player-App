@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SongCardList from '../Components/ArtistPlaylist/SongCardList'
 import { setcurrentArtist, setCurrentTrack, setIsplaying } from '../Features/CurrentTrack'
-import { setPlayList, setShuffle } from '../Features/SongSlice'
+import { setNotShuffled, setPlayList, setShuffle } from '../Features/SongSlice'
 
 
 const Artist = () => {
@@ -28,6 +28,8 @@ const Artist = () => {
     dispatch(setCurrentTrack({ ...artist.albums[0] }))
     dispatch(setIsplaying(true))
     dispatch(setPlayList(artist.albums))
+    dispatch(setNotShuffled(artist.albums))
+    dispatch(setShuffle(false))
   }
 
   return (

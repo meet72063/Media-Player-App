@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import { useDispatch} from 'react-redux'
 import SongCardList from '../Components/ArtistPlaylist/SongCardList'
 import {setcurrentArtist,setCurrentTrack,setIsplaying} from '../Features/CurrentTrack'
-import { setPlayList } from '../Features/SongSlice'
+import { setPlayList,setNotShuffled, setShuffle } from '../Features/SongSlice'
 
 
 const PlayListTracks = () => {
@@ -16,13 +16,17 @@ const PlayListTracks = () => {
     dispatch( setCurrentTrack(songs[0]))
      dispatch(setIsplaying(true))
      dispatch(setPlayList(songs))
+     dispatch(setNotShuffled(songs))
+     dispatch(setShuffle(false))
+
+
    }
 
   return (
     <div className='bg-black min-h-screen flex gap-3  pb-1  pl-3 pr-3'>
     <div className=' bg-zinc-800 w-[100%]  text-white '>
       <div className=' pr-1 sm:h-[100%] grid sm:grid-cols-[160px_1fr]'>
-        <div className=' bg-zinc-900 border-gray-700 border-r-[0.5px]'>
+        <div className=' bg-zinc-900 sm:h-screen border-gray-700 border-r-[0.5px]'>
 
         </div>
         <div className=' mt-4 ml-2'>

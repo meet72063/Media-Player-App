@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SongCard from '../ArtistPlaylist/SongCard'
-import { setPlayList } from '../../Features/SongSlice'
+import { setNotShuffled, setPlayList, setShuffle } from '../../Features/SongSlice'
 import { setIsplaying, setCurrentTrack } from '../../Features/CurrentTrack'
 
 
@@ -16,6 +16,7 @@ const Library = () => {
     dispatch(setCurrentTrack(freshSongs[0]))
     dispatch(setIsplaying(true))
     dispatch(setPlayList(freshSongs))
+    dispatch(setShuffle(false))
   }
 
 
@@ -56,6 +57,8 @@ const dispatch = useDispatch()
     dispatch(setCurrentTrack(mixedSongs[0]))
     dispatch(setIsplaying(true))
     dispatch(setPlayList(mixedSongs))
+    dispatch(setNotShuffled(mixedSongs))
+    dispatch(setShuffle(false))
   }
   return (
     <div className='space-y-3 mt-16 '>

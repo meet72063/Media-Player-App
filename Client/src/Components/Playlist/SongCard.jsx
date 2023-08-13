@@ -52,6 +52,7 @@ const SongCard = ({ name, url, albums, img, artist ,_id}) => {
 
                         </button>
                     </div>
+                    
                 </div>
 
             </div>

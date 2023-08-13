@@ -16,7 +16,8 @@ export const ShufflePlaylist = (arr)=>{
     initialState:{
       playlist:[],
       createPlaylist:[],
-      shuffle:false
+      shuffle:false,
+      notShuffledTracks:[]
 
      
     },
@@ -39,7 +40,11 @@ export const ShufflePlaylist = (arr)=>{
     },
     setShuffle:(state,{payload})=>{
       state.shuffle = payload
+    },
+    setNotShuffled:(state,{payload})=>{
+      state.notShuffledTracks = payload
     }
+    
     }
     
 })
@@ -48,4 +53,4 @@ export const ShufflePlaylist = (arr)=>{
 
 export default songSlice.reducer
 
-export const {setPlayList,addToCreatePlaylist,removeFromCreatePlaylist,clearCreatePlaylist,shuffleSongs,setShuffle} = songSlice.actions
+export const {setPlayList,addToCreatePlaylist,removeFromCreatePlaylist,clearCreatePlaylist,shuffleSongs,setShuffle,setNotShuffled} = songSlice.actions

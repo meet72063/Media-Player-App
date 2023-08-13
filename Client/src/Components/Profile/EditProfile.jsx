@@ -113,10 +113,10 @@ const EditProfile = ({setEditProfile}) => {
                             className=' bg-white pl-14 border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white' />
 
 
-                        <select id="month" name='month' defaultValue={month} className="bg-white border  h-10 border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
+                        <select id="month" name='month' defaultValue={month} className="bg-white border h-10  overflow-y-scroll border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
                             <option value={month} className='capitalize'>{month}</option>
                             {years.map((item, index) => {
-                                if (item !== 'August') return <option key={index} className='capitalize px-5' value={item} >{item}</option>
+                                if (item !== month) return <option key={index} className='capitalize px-5' value={item} >{item}</option>
 
                             })}
                         </select>
