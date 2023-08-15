@@ -37,6 +37,13 @@ export const getCatogories = async()=>{
 
 }
 
+//adding song to playlist 
+
+export const addSongToPlaylist = async(song)=>{
+  let token = localStorage.getItem('token')
+  const res = await axios.patch(`${baseUrl}/addSongToPlaylist/${song.playlistId}`)
+}
+
 
 
 

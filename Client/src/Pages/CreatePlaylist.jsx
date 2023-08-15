@@ -8,7 +8,7 @@ import Loading from '../Components/SharedComponents/Loading'
 import axios from 'axios'
 
 const CreatePlaylist = () => {
-  const { allSongs } = useSelector(store => store.currentTrack)
+  const { allSongs,Library } = useSelector(store => store.currentTrack)
   const { createPlaylist } = useSelector(store => store.songs)
   const { favouritePlaylist } = useSelector(store => store.playlists)
   const [playlistInfo, setPlaylistInfo] = useState({ name: '', description: '' })
@@ -91,7 +91,7 @@ const CreatePlaylist = () => {
         <div>
           <h2 className='font-thin  text-zinc-300'>from library</h2>
           <div className='mt-10 grid lg:grid-cols-3  md:grid-cols-2 gap-4 '>
-            {allSongs.map((song, index) => {
+            {Library?.map((song, index) => {
               return <SongCard key={index} {...song} />
             })}
 
@@ -104,9 +104,9 @@ const CreatePlaylist = () => {
 
       </div>
 
-      <div className='ml-10 mr-10 mt-8 pb-2 border-b-[0.1px] border-zinc-800'>
+      {favouritePlaylist.length>0 && <div className='ml-10 mr-10 mt-8 pb-2 border-b-[0.1px] border-zinc-800'>
         <h2 className='font-thin  text-zinc-300'>from your favourites</h2>
-      </div>
+      </div>}
       <div className='mt-10 grid lg:grid-cols-3  md:grid-cols-2 gap-4 ml-8 mr-10'>
         {favouritePlaylist.map((song, index) => {
           return <SongCard key={index} {...song} />

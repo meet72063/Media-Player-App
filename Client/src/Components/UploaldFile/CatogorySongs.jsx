@@ -1,5 +1,4 @@
-
-
+// To upload the catogory songs
 
 
 import React, { useState } from 'react'
@@ -105,10 +104,6 @@ console.log('started uploading')
   }
 
   const CoverUploadHanlder = (e) => {
-    // if(!songDetails.Artist){
-    //   alert("provide artist name first")
-    //   return
-    // }
 
     const storageRef = ref(storage, `Catorgory_playlist/${songDetails.Artist}/${e.target.files[0].name}-${Date.now()}`)
 

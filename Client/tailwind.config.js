@@ -24,6 +24,11 @@ export default {
       'Comfortaa':['Comfortaa', 'cursive'],
     }
   },
+  variants: {
+    extend: {
+        display: ["group-hover"],
+    },
+},
   plugins: [],
 }
 

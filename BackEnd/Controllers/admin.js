@@ -57,8 +57,6 @@ const editUserById = async (req, res) => {
 //adding songs
 
 const addSong = async (req, res) => {
-  
-  console.log(req.body)
   const { name, img,url,artist } = req.body;
   const { error } = songValidate(req.body);
   if (error) {

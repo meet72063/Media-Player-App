@@ -1,3 +1,5 @@
+// uploading random songs 
+
 import React, { useState } from 'react'
 import { app } from '../../../config/fireBase.-config'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
@@ -82,7 +84,6 @@ const UploadSong = () => {
           setState({ ...state, [e.target.name]: downloadURL })
           e.target.name==='songCover'?setIsuploading({...isUploading,songCover:false}):setIsuploading({...isUploading,song:false})
     
-          // setIsuploading({ ...isUploading, [e.target.name]: false })
         });
       })
 

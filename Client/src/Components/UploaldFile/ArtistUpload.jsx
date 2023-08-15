@@ -1,3 +1,7 @@
+//this is just for making  new artist playlist ,do not upload songs here cuz it only uploads songs url,to upload the song in the artist playlist
+// we will use "UploadSongtoArtist" component
+
+
 import React, { useState } from 'react'
 import { CloudUpload, ConstructionOutlined } from '@mui/icons-material'
 import { app } from '../../../config/fireBase.-config'
@@ -6,7 +10,6 @@ import IsUploading from './IsUploading'
 import SongCoverUpload from './SongCoverUpload'
 import Error from '../SharedComponents/Error'
 import { saveArtistPlaylist } from '../../api/admin'
-import {setartistSongs} from '../../Features/CurrentTrack'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -23,7 +26,7 @@ const ArtistUpload = () => {
  
 const dispatch = useDispatch()
   const [artistDetails, setArtistDetails] = useState({ name: '', description: '' })
-  // const {songs} = useSelector((store)=>store.currentTrack)
+  
   //deleting the uploaded picture
   const deleteFile = (file) => {
 
@@ -99,7 +102,8 @@ async function uploadFileAsPromise (file,option) {
 
 
 
-//multiple songs uploading 
+//multiple songs uploading (doesnt work ,uploads just url)
+
 
 const songsUploader =async (e)=>{
   setFileCount(e.target.files.length)

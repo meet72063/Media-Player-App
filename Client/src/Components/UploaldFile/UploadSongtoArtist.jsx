@@ -1,5 +1,5 @@
 
-
+// upload song to an existing artist playlist
 
 
 import React, { useState } from 'react'
@@ -38,6 +38,8 @@ const UploadSongtoArtist = () => {
   
   const  { } = useSelector((store)=>store.currentTrack)
 
+
+  // to delete uploaded cover or song
   const deleteFile = (fileName) => {
     
   fileName==='songCover'?setIsuploading({...isUploading,songCover:true}):setIsuploading({...isUploading,song:true})
@@ -65,7 +67,7 @@ const UploadSongtoArtist = () => {
 
 
 
-
+// upload song 
   const uploadHanlder = (e) => {
     if(!songDetails.Artist){
       alert("provide artist name first")
@@ -105,6 +107,7 @@ const UploadSongtoArtist = () => {
 
   }
 
+  // upload song cover pic
   const CoverUploadHanlder = (e) => {
     if(!songDetails.Artist){
       alert("provide artist name first")
@@ -146,10 +149,7 @@ const UploadSongtoArtist = () => {
 
 
 
-
-
-
-
+// save song to mongodb
 
   const submitSong = async()=>{
        if(!songDetails.url||!songDetails.name||!songDetails.img){

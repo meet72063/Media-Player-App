@@ -1,13 +1,13 @@
 import { useSelector,useDispatch } from 'react-redux'
-import { setCurrentTrack } from '../../Features/CurrentTrack'
-import { setPlayList } from '../../Features/SongSlice'
+import { setCurrentTrack, setIsplaying } from '../../Features/CurrentTrack'
+import { setPlayList,shuffleSongs } from '../../Features/SongSlice'
 
 
 
 
 
 const DispalyTrack = ({audioRef,currentplaying,progressRef,progressValue,duration,setDuration,loop}) => {
-  const { allSongs} = useSelector((store) => store.currentTrack)
+  const { allSongs,} = useSelector((store) => store.currentTrack)
   const {playlist } = useSelector((store)=>store.songs)
   
   const dispatch = useDispatch()
@@ -28,9 +28,10 @@ const handleEnded= ()=>{
     return
   }
   if (index===maxIndex) {
-    dispatch(setPlayList(allSongs))
-    dispatch(setCurrentTrack({ ...playlist[0] }))
-
+    dispatch(setPlayList(Library))
+      dispatch(shuffleSongs())
+      dispatch(setCurrentTrack({ ...playlist[0] }))
+     dispatch( setIsplaying(true))
   }else if(index===undefined){
     dispatch(setCurrentTrack({ ...playlist[0] }))
     
@@ -75,7 +76,7 @@ return (
    
  <div className='flex flex-col gap-y-3 '>
 
-   <div  className=' xs:pl-10 pl-0 flex place-content-center gap-x-2 rounded-3xl ' >
+   <div  className=' xs:pl-10 pl-0 flex place-content-center gap-x-2  text-sm' >
         <audio src={currentplaying?.url} ref={audioRef} onLoadedMetadata={onLoadedMetadata} onEnded={handleEnded} ></audio>
         
        <span >{formatTime(progressValue)}</span> <input type="range"className='w-[800px] ' defaultValue={0} onChange={handleChange} ref={progressRef} /><span>{formatTime(duration)}</span>

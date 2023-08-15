@@ -10,7 +10,7 @@ const ArtistIcons = ({img,name,_id}) => {
   return (
     <div className='space-y-1 text-red-400  text-lg font-semibold flex flex-col items-center '>
            <img src={img} className='w-[150px] h-[150px] cursor-pointer rounded-[100px] border-[0.1px] border-zinc-400'  onClick={()=>navigate(`/artist/${_id}`)}  alt='img'/>
-           <span className=' font-bold font-cursive xs:text-lg sm:text-2xl tracking-wide text-green-300 cursor-pointer drop-shadow-[0_1.9px_1.2px_rgba(0,0,0,1)] ' onClick={()=>navigate(`/artist/${_id}`)}>{name}</span>
+           <span className=' font-bold font-cursive xs:text-lg sm:text-2xl tracking-wide text-green-300 cursor-pointer  ' onClick={()=>navigate(`/artist/${_id}`)}>{name}</span>
     </div>
 
   )

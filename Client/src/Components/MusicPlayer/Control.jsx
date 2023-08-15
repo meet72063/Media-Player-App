@@ -15,7 +15,7 @@ import axios from 'axios'
 let token 
 
 const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration, currentplaying,error,loop,setLoop}) => {
-  const { allSongs} = useSelector((store) => store.currentTrack)
+  const { Library} = useSelector((store) => store.currentTrack)
   const {playlist,shuffle,notShuffledTracks} = useSelector(store=>store.songs)
   const {favouritePlaylist} = useSelector(store=>store.playlists)
  const [favourite ,setFavourite] = useState(false)
@@ -27,7 +27,7 @@ const Control = ({ isPlaying, audioRef, setProgressValue, progressRef, duration,
 
 useEffect(()=>{
   if(playlist.length===0){
-    dispatch(setPlayList(allSongs))
+    dispatch(setPlayList(Library))
   }
 },[])
 
@@ -107,9 +107,10 @@ useEffect(()=>{
   const setNextSong = () => {
     let maxIndex = playlist.length - 1
     if (index===maxIndex) {
-      shuffle&&dispatch(setPlayList(allSongs))
+      dispatch(setPlayList(Library))
+      dispatch(shuffleSongs())
       dispatch(setCurrentTrack({ ...playlist[0] }))
-      shuffle&&dispatch(shuffleSongs())
+    
 
     }else if(index===undefined){
       console.log(index)
@@ -164,11 +165,11 @@ useEffect(()=>{
 
   return (
 
-    <div className='flex justify-start xs:text-sm sm:justify-center gap-x-1 sm:gap-x-4 sm:ml-10'>
+    <div className='flex justify-start xs:text-xs sm:justify-center gap-x-1 sm:gap-x-4 sm:ml-10'>
       <button onClick={setPreviousSong}>
         <SkipPrevious />
       </button>
-      <button onClick={() => audioRef.current.currentTime -= 10}>
+      <button  onClick={() => audioRef.current.currentTime -= 10}>
         <SkipPreviousTwoTone />
       </button>
       <button onClick={() => dispatch(setIsplaying(!isPlaying))} >
