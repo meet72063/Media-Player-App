@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import {  PauseSharp, PlayArrowSharp } from '@mui/icons-material'
+import React, { useEffect, useState } from 'react'
+import { PauseSharp, PlayArrowSharp } from '@mui/icons-material'
 import { useDispatch, useSelector } from "react-redux"
 import { setIsplaying, setCurrentTrack, } from '../../Features/CurrentTrack'
 import { setPlayList, setNotShuffled } from '../../Features/SongSlice'
@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Add } from '@mui/icons-material'
 import { setLoginModal, setSideBar } from '../../Features/modalSlice'
-import { setSongToBeAdded, updateUserPlaylist} from '../../Features/UserPlaylistSlice'
+import { setSongToBeAdded, updateUserPlaylist } from '../../Features/UserPlaylistSlice'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { getData } from '../../localStorage'
+
 
 
 
@@ -41,7 +41,7 @@ const SongCard = ({ name, url, albums, _id, artist, img, playlistId }) => {
       return
     }
 
-    dispatch(setCurrentTrack({ url, name, _id }))
+    dispatch(setCurrentTrack({ url, name, _id, artist }))
     dispatch(setIsplaying(true))
     setPlaying(true)
     dispatch(setPlayList(albums))
@@ -63,7 +63,7 @@ const SongCard = ({ name, url, albums, _id, artist, img, playlistId }) => {
             <button onClick={handlePlaying}>{playing ? <PauseSharp /> : <PlayArrowSharp />}</button>
             <button className='text-black invisible group-hover:visible relative  ' >
               <FontAwesomeIcon icon={faEllipsisVertical} onClick={() => setOptions(!options)} />
-              {options && <Options {...{ name, url, img, _id, artist, playlistId ,setOptions}} />}
+              {options && <Options {...{ name, url, img, _id, artist, playlistId, setOptions }} />}
             </button>
           </div>
 
@@ -80,7 +80,8 @@ export default SongCard
 
 
 
-const Options = ({ url, _id, img, artist, name, playlistId,setOptions}) => {
+const Options = ({ url, _id, img, artist, name, playlistId, setOptions }) => {
+  let { userDetails, token } = useSelector(store => store.userDetails)
   const [removeSong, setRemoveSong] = useState(false)
 
   const dispatch = useDispatch(setSideBar())
@@ -95,8 +96,7 @@ const Options = ({ url, _id, img, artist, name, playlistId,setOptions}) => {
   }, [page])
 
   const addToPlaylistHandler = () => {
-    let userDetails = getData()
-    if(!userDetails){
+    if (!userDetails) {
       dispatch(setLoginModal(true))
       return
     }
@@ -105,23 +105,25 @@ const Options = ({ url, _id, img, artist, name, playlistId,setOptions}) => {
   }
 
   //removing song from playlist
-  const removeSongHandler = async() => {
-    let token = localStorage.getItem("token")
+  const removeSongHandler = async () => {
     try {
-      const res = await  axios.patch(`http://localhost:5000/delteSongFromPlaylist/${playlistId}`,{songId:_id},{
+      const res = await axios.patch(`http://localhost:5000/delteSongFromPlaylist/${playlistId}`, { songId: _id }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
-      
-     dispatch(updateUserPlaylist(res.data.playlist))
-     setOptions(false)
+
+      dispatch(updateUserPlaylist(res.data.playlist))
+      setOptions(false)
     } catch (error) {
       alert(`An error occured while deleting ${name}`)
       console.log(error)
     }
-    
+
   }
+
+
+
 
 
 
@@ -129,14 +131,14 @@ const Options = ({ url, _id, img, artist, name, playlistId,setOptions}) => {
     <>
       <div className=' p-2 space-y-1 absolute right-0 rounded-md z-10 bg-white text-blue-400 flex flex-col '>
         <div className=' hover:text-red-500  '>
-          <a href={url} className=''>DownLoad </a>
-
+          <a href={url} download>DownLoad </a>
         </div>
-        {removeSong ? <div className='hover:text-red-500' onClick={removeSongHandler}>
+        {removeSong && <div className='hover:text-red-500' onClick={removeSongHandler}>
           remove
-       </div> :  <div className='hover:text-red-500 ' onClick={addToPlaylistHandler}>
-          <Add />
         </div>}
+        <div className='hover:text-red-500 ' onClick={addToPlaylistHandler}>
+          <Add />
+        </div>
 
       </div>
 

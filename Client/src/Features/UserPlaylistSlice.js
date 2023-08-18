@@ -4,23 +4,11 @@ const userplaylistSlice = createSlice({
   name: "playlists",
   initialState: {
     userPlaylists: [],
-    favouritePlaylist: [],
     songTobeAdded: "",
   },
   reducers: {
     setUserPlaylists: (state, { payload }) => {
       state.userPlaylists = payload;
-    },
-    addToFavouritePlaylist: (state, { payload }) => {
-      state.favouritePlaylist.push(payload);
-    },
-    removeFromFavouritePlaylist: (state, { payload }) => {
-      state.favouritePlaylist = state.favouritePlaylist.filter(
-        (item) => item._id !== payload._id
-      );
-    },
-    setFavouritePlaylist: (state, { payload }) => {
-      state.favouritePlaylist = payload;
     },
     setSongToBeAdded: (state, { payload }) => {
       state.songTobeAdded = payload;
@@ -35,9 +23,6 @@ const userplaylistSlice = createSlice({
 
 export const {
   setUserPlaylists,
-  addToFavouritePlaylist,
-  removeFromFavouritePlaylist,
-  setFavouritePlaylist,
   setSongToBeAdded,
   updateUserPlaylist
 } = userplaylistSlice.actions;

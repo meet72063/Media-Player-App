@@ -3,6 +3,8 @@ import { useState } from "react";
 import {NavLink ,useNavigate}   from 'react-router-dom'
 import axios from 'axios'
 import Error from "../SharedComponents/Error";
+import { useDispatch } from "react-redux";
+import {setToken} from "../../Features/userDetailSlice";
 
 
  
@@ -12,6 +14,7 @@ import Error from "../SharedComponents/Error";
   export default function InputField() {
     const [userDetails,setUserDetails] = useState({name:'',email:'',password:''})
     const [error,setError] = useState(null)
+    const  dispatch = useDispatch()
     
     const navigate = useNavigate()
     
@@ -26,8 +29,8 @@ import Error from "../SharedComponents/Error";
         e.preventDefault()
       try {
         const response = await axios.post('http://localhost:5000/signUp',userDetails)
-         localStorage.setItem("token",response.data.token)
-         
+         dispatch(setToken(response.data.token))
+       
          navigate('/almostDone')
       } catch (error) {
         setError(error.response?.data?.messege||error.response?.data?.error||'something went wrong')

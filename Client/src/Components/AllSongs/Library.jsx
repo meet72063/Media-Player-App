@@ -50,7 +50,7 @@ export default Library
 
 export const MixedPlaylist = () => {
   const { Library } = useSelector(store => store.currentTrack)
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   let mixedSongs = [...Library].splice(Library.length / 2)
 
   const handleMixSongsPlaylist = () => {

@@ -3,9 +3,8 @@ import { useState } from "react";
 import axios from 'axios'
 import Error from "../SharedComponents/Error";
 import {useNavigate,NavLink} from 'react-router-dom'
-import {saveData} from '../../localStorage'
-import {setFavouritePlaylist} from '../../Features/UserPlaylistSlice'
 import { useDispatch } from "react-redux";
+import { setToken, storeUserDetails } from "../../Features/userDetailSlice";
  
    
   export default function InputLogin() {
@@ -24,15 +23,15 @@ import { useDispatch } from "react-redux";
    
     try {
       const  response = await axios.post('http://localhost:5000/login',userDetails)
-      
-      localStorage.setItem("token",response.data.token)
-      saveData(response.data.data)
-      dispatch(setFavouritePlaylist(response.data.data.likedSongs))
+      const {data,token} = response.data
+      dispatch(storeUserDetails(data))
+      dispatch(setToken(token))
     
       
       navigate('/')
       
     } catch (error) {
+      console.log(error)
       setError(error.response?.data?.error||error.response?.data||'something went wrong')
     }
     }

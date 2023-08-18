@@ -8,7 +8,7 @@ import { CloudUpload } from '@mui/icons-material'
 import axios from 'axios'
 import IsUploading from './IsUploading'
 import TrackUpload from './TrackUpload'
-import {addingSongs} from '../../api/admin'
+import { addingSongs } from '../../api/admin'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import SongCoverUpload from './SongCoverUpload'
 
@@ -19,43 +19,43 @@ const storage = getStorage(app)
 
 
 const CatogorySongs = () => {
-  const [isUploading, setIsuploading] = useState({song:false,songCover:false})
+  const [isUploading, setIsuploading] = useState({ song: false, songCover: false })
   const [songprogressValue, setsongProgressValue] = useState(0)
-  const [songCovergprogressValue,setSongCoverPogrssValue] = useState(0)
-  const [select,setSelect] = useState('')
+  const [songCovergprogressValue, setSongCoverPogrssValue] = useState(0)
+  const [select, setSelect] = useState('')
 
-  const {catogories} = useSelector(store=>store.currentTrack)
+  const { catogories } = useSelector(store => store.currentTrack)
 
- 
-  
 
-  const [state, setState] = useState({song: '' ,songCover:''})
-  const [songDetails, setSongDetails] = useState({  url: '', name:'',Artist:'',img:'' })
-  
 
-  const  handleChange = (e)=>{
-    setSongDetails({...songDetails,[e.target.name]:e.target.value})
+
+  const [state, setState] = useState({ song: '', songCover: '' })
+  const [songDetails, setSongDetails] = useState({ url: '', name: '', Artist: '', img: '' })
+
+
+  const handleChange = (e) => {
+    setSongDetails({ ...songDetails, [e.target.name]: e.target.value })
   }
-  
-//   const  { } = useSelector((store)=>store.currentTrack)
+
+  //   const  { } = useSelector((store)=>store.currentTrack)
 
   const deleteFile = (fileName) => {
-    
-  fileName==='songCover'?setIsuploading({...isUploading,songCover:true}):setIsuploading({...isUploading,song:true})
-   
-    const url = `${fileName==='songCover'?songDetails.img:songDetails.url}`
+
+    fileName === 'songCover' ? setIsuploading({ ...isUploading, songCover: true }) : setIsuploading({ ...isUploading, song: true })
+
+    const url = `${fileName === 'songCover' ? songDetails.img : songDetails.url}`
     const deleteRef = ref(storage, url)
     deleteObject(deleteRef).then(() => {
-      
-      fileName==='songCover'?setIsuploading({...isUploading,songCover:false}):setIsuploading({...isUploading,song:false})
+
+      fileName === 'songCover' ? setIsuploading({ ...isUploading, songCover: false }) : setIsuploading({ ...isUploading, song: false })
 
 
-      fileName==='songCover'?setSongDetails({...songDetails,img:''}) :setSongDetails ({...songDetails, url:''})
-      fileName==='songCover'?setState({...state,songCover:''}) :setSongDetails ({...songDetails, song:''})
-      
+      fileName === 'songCover' ? setSongDetails({ ...songDetails, img: '' }) : setSongDetails({ ...songDetails, url: '' })
+      fileName === 'songCover' ? setState({ ...state, songCover: '' }) : setSongDetails({ ...songDetails, song: '' })
+
 
     }).catch((err) => {
-      fileName==='songCover'?setIsuploading({...isUploading,songCover:false}):setIsuploading({...isUploading,song:false})
+      fileName === 'songCover' ? setIsuploading({ ...isUploading, songCover: false }) : setIsuploading({ ...isUploading, song: false })
 
       console.log(err)
     })
@@ -68,36 +68,36 @@ const CatogorySongs = () => {
 
 
   const uploadHanlder = (e) => {
-  
-console.log('started uploading')
+
+    console.log('started uploading')
     const storageRef = ref(storage, `CatogoryPlaylist/Hip-Hop/${e.target.files[0].name}-${Date.now()}`)
 
     const metadata = {
       contentType: 'audio/mpeg',
     };
-    setIsuploading( {...isUploading,song:true})
+    setIsuploading({ ...isUploading, song: true })
 
 
     const uploadTask = uploadBytesResumable(storageRef, e.target.files[0], metadata)
     uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      
+
       setsongProgressValue(progress)
 
     }, (error) => {
       console.log(error)
-      setIsuploading( {...isUploading,song:false})
+      setIsuploading({ ...isUploading, song: false })
 
 
     },
       () => {
 
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-           setSongDetails({ ...songDetails, url: downloadURL })
+          setSongDetails({ ...songDetails, url: downloadURL })
 
 
-          setState({...state,song: downloadURL })
-          setIsuploading( {...isUploading,song:false})
+          setState({ ...state, song: downloadURL })
+          setIsuploading({ ...isUploading, song: false })
         });
       })
 
@@ -110,8 +110,8 @@ console.log('started uploading')
     const metadata = {
       contentType: 'img/jpg',
     };
-   
-    setIsuploading({...isUploading,songCover:true})
+
+    setIsuploading({ ...isUploading, songCover: true })
 
     const uploadTask = uploadBytesResumable(storageRef, e.target.files[0], metadata)
     uploadTask.on('state_changed', (snapshot) => {
@@ -121,17 +121,17 @@ console.log('started uploading')
 
     }, (error) => {
       console.log(error)
-      setIsuploading({...isUploading,songCover:false})
-    
+      setIsuploading({ ...isUploading, songCover: false })
+
     },
       () => {
 
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-           setSongDetails({ ...songDetails, img: downloadURL })
+          setSongDetails({ ...songDetails, img: downloadURL })
 
 
-          setState({...state,songCover:downloadURL })
-          setIsuploading({...isUploading,songCover:false})
+          setState({ ...state, songCover: downloadURL })
+          setIsuploading({ ...isUploading, songCover: false })
 
         });
       })
@@ -145,38 +145,38 @@ console.log('started uploading')
 
 
 
-  const submitSong = async()=>{
-       if(!songDetails.url||!songDetails.name||!songDetails.img){
-        alert('please provide songCover and song both')
-        return
-       }
+  const submitSong = async () => {
+    if (!songDetails.url || !songDetails.name || !songDetails.img) {
+      alert('please provide songCover and song both')
+      return
+    }
 
-      if(!select){
-        alert("please select the catogory")
-      }
-       try {
-        const res=  await axios.patch(`http://localhost:5000/admin/addToCatogoryPLaylist/${select}`,{url:songDetails.url,name:songDetails.name,img:songDetails.img,artist:songDetails.Artist})
-    console.log('uploaded succesfully')
-       } catch (error) {
-        console.log(error)
-       }
-      
-      
+    if (!select) {
+      alert("please select the catogory")
+    }
+    try {
+      const res = await axios.patch(`http://localhost:5000/admin/addToCatogoryPLaylist/${select}`, { url: songDetails.url, name: songDetails.name, img: songDetails.img, artist: songDetails.Artist })
+      console.log('uploaded succesfully')
+    } catch (error) {
+      console.log(error)
+    }
+
+
   }
 
 
 
   return (
 
-    <div>
+    <div className='pb-40'>
       <div className='pt-8 mb-4 text-3xl  pl-5 font-bold text-red-600'>
-      <h1 >Upload New Songs </h1>
+        <h1 >Upload Song to any catogory playlist </h1>
       </div>
-      <div className='grid pb-2 pt-2 grid-cols-1 w  h-[60vh]  gap-2 bg-slate-200  '>
+      <div className='grid pb-2 pt-2 grid-cols-2 w  h-[60vh]    '>
 
 
         {/* songCover Upload */}
-       
+
         {
           isUploading.songCover ? <IsUploading progress={songCovergprogressValue} /> : <div className='bg-white text-center flex flex-col justify-center rounded-lg  w-[500px] '>
             {!state.songCover ? <label htmlFor="cover" className='cursor-pointer'>
@@ -193,7 +193,7 @@ console.log('started uploading')
 
         {/* song upload */}
 
-        {isUploading.song? <IsUploading progress={songprogressValue} /> : <div className='bg-white text-center flex flex-col justify-center rounded-lg w-[500px]  '>
+        {isUploading.song ? <IsUploading progress={songprogressValue} /> : <div className='bg-white text-center flex flex-col justify-center rounded-lg w-[500px]  '>
           {!state.song ? <label htmlFor="song-upload" className='cursor-pointer'>
 
             <div className='space-x-3 text-lg '>
@@ -207,7 +207,7 @@ console.log('started uploading')
 
       <div className=' flex justify-evenly text-lg '>
         <div className='space-x-2 '>
-          <label  htmlFor="trackName" className='font-semibold'>Song Name</label>
+          <label htmlFor="trackName" className='font-semibold'>Song Name</label>
           <input id='trackName' name='name' type="text" className='pl-1' value={songDetails.name} onChange={handleChange} />
         </div>
         <div className='space-x-2'>
@@ -218,16 +218,16 @@ console.log('started uploading')
         <div >
           <button onClick={submitSong} className='bg-red-400 w-48 rounded-lg border-sky-200'>Save</button>
         </div>
-  
-    <label htmlFor="catogory">Choose Catogory</label>
-   <select name="catogory" id="artist" onChange={(e)=>setSelect(e.target.value)}>
-    <option value=''></option>
-   { catogories.map((a,index)=>{
-    return  <option value={`${a._id}`} key={index}>{a.name}</option>
-   })}
-      
-   </select>
-     
+
+        <label htmlFor="catogory">Choose Catogory</label>
+        <select name="catogory" id="artist" onChange={(e) => setSelect(e.target.value)}>
+          <option value=''></option>
+          {catogories.map((a, index) => {
+            return <option value={`${a._id}`} key={index}>{a.name}</option>
+          })}
+
+        </select>
+
 
       </div>
     </div>
@@ -237,7 +237,7 @@ console.log('started uploading')
 }
 
 
-export default CatogorySongs 
+export default CatogorySongs
 
 
 

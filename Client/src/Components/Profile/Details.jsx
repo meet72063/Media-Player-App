@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { getData } from '../../localStorage'
+import { useSelector } from 'react-redux'
 
 
 const Details = ({setEditProfile}) => {
+const {userDetails:data} = useSelector(store=>store.userDetails)
 
-    const data = getData()
   return (
     <div >
             <h1 className='font-semibold text-4xl sm:text-6xl'>Account overview</h1>

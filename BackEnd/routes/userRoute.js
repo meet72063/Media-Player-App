@@ -20,6 +20,7 @@ const {
   getAllCatogriesPlaylist,
   addSongtoPlaylist,
   removeSongfromPlaylist,
+  getDownloadSongURl,
 } = require("../Controllers/user");
 
 router.route("/signUp").post(creatUser);
@@ -33,11 +34,16 @@ router.route("/getAllSongs").get(getSongs);
 router.route("/newplaylist").post(userAuth, newPlayList);
 router.route("/deleteplaylist/:playlistId").delete(userAuth, deltePlaylist);
 router.route("/editplaylist/:playlistId").patch(userAuth, editPlaylist);
-router.route("/addSongToPlaylist/:playlistId").patch(userAuth, addSongtoPlaylist);
-router.route("/delteSongFromPlaylist/:playlistId").patch(userAuth, removeSongfromPlaylist);
+router
+  .route("/addSongToPlaylist/:playlistId")
+  .patch(userAuth, addSongtoPlaylist);
+router
+  .route("/delteSongFromPlaylist/:playlistId")
+  .patch(userAuth, removeSongfromPlaylist);
 router.route("/getplaylist/:playlistId").get(userAuth, getPlaylist);
 router.route("/getallplaylists").get(userAuth, getAllPlaylist);
 router.route("/getAllArtists").get(getAllArtists);
 router.route("/getCatogories").get(getAllCatogriesPlaylist);
+router.route("/getDownloadUrl/:audioUrl").get(getDownloadSongURl);
 
 module.exports = router;

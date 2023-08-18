@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { getData } from "../../localStorage"
+import { useDispatch, useSelector } from 'react-redux'
 import { setLoginModal } from '../../Features/modalSlice'
-import { setFavouritePlaylist } from '../../Features/UserPlaylistSlice'
+import { setToken, storeUserDetails } from '../../Features/userDetailSlice'
 
 
 
@@ -12,23 +11,23 @@ import { setFavouritePlaylist } from '../../Features/UserPlaylistSlice'
 
 
 const NavLinks = () => {
-  let userDetails = getData()
+  let { token } = useSelector(store => store.userDetails)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const logInOutHandler = () => {
-    if (userDetails) {
-      localStorage.removeItem("token")
-      localStorage.removeItem("userDetails")
-      localStorage.removeItem("persist:root")
-      dispatch(setFavouritePlaylist([]))
+    if (token) {
+      dispatch(storeUserDetails(''))
+      dispatch(setToken(''))
+
     }
-    navigate('/signUp')
+    navigate('/login')
 
   }
 
   const navigation = (e) => {
-    if (!userDetails) {
+    console.log(token)
+    if (!token) {
       e.preventDefault()
       dispatch(setLoginModal(true))
 
@@ -47,7 +46,7 @@ const NavLinks = () => {
       <NavLink onClick={navigation} to='playlists' className={style}>Playlists</NavLink>
       <NavLink onClick={navigation} to='favourites' className={style}>Favourites</NavLink>
       <div>
-        {userDetails ? <div className='pb-3 text-base font-thin '>
+        {token ? <div className='pb-3 text-base font-thin '>
           <Link to="/profile"> <img src="/profile-circle.svg" alt="profile pic" width='50px' /></Link>
           <button onClick={logInOutHandler}>logout</button>
         </div> : <button onClick={logInOutHandler} className='pr-3 pl-5 pt-2 pb-2 border-red-800 border-[0.1px] rounded-lg'>login</button>}

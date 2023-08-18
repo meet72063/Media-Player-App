@@ -13,18 +13,19 @@ import NewPlaylistCard from '../../Playlist/NewPlaylistCard'
 
 const SideBar = () => {
   const [loading, setLoading] = useState(false)
-  const [showConformationModal,setShowConfromationModal] = useState(false)
-  // const [allPlaylists, setAllPlaylists] = useState([])
   const [error, setError] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const { openSideBar } = useSelector(store => store.modal)
-  const {userPlaylists} = useSelector(store=>store.playlists)
+  const { userPlaylists } = useSelector(store => store.playlists)
+  const { token } = useSelector(store => store.userDetails)
   const dispatch = useDispatch()
 
 
 
   useEffect(() => {
-    let token = localStorage.getItem("token")
+    if (!token) {
+      return
+    }
     const gettingPlaylists = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/getallplaylists`, {
@@ -45,9 +46,8 @@ const SideBar = () => {
   }, [refresh])
 
 
-  const hideSideBar = ()=>{
-     dispatch(setSideBar(false))
-     set
+  const hideSideBar = () => {
+    dispatch(setSideBar(false))
   }
 
 
@@ -63,10 +63,9 @@ const SideBar = () => {
 
 
   if (error) {
-    console.log(error)
     return <div className={`fixed overflow-scroll pb-40 top-0 grid place-content-center z-20 right-0 h-screen bg-blue-400 md:w-[60vw]  w-[70vw] transition-all ease-in-out ${openSideBar ? "translate-x-0" : "translate-x-full"} duration-1000 `}>
       <div className='fixed top-3 right-3 md:right-8 text-xl  md:text-2xl'><FontAwesomeIcon icon={faClose} onClick={() => dispatch(setSideBar(false))} className='cursor-pointer' /></div>
-      
+
       <Error error='Something went wrong' />
     </div>
   }
@@ -87,7 +86,7 @@ const SideBar = () => {
             {userPlaylists.map((playlist, index) => {
               return <PlaylistCard key={index} {...playlist} setRefresh={setRefresh} refresh={refresh} />
             })}
-            <NewPlaylistCard fromModal="fromModal"/>
+            <NewPlaylistCard fromModal="fromModal" />
 
           </div>
 

@@ -7,7 +7,8 @@ import { CloudUpload } from '@mui/icons-material'
 import SongCoverUpload from './SongCoverUpload'
 import IsUploading from './IsUploading'
 import TrackUpload from './TrackUpload'
-import {saveSong} from '../../api/admin'
+import { saveSong } from '../../api/admin'
+import { useSelector } from 'react-redux'
 
 
 
@@ -16,20 +17,21 @@ const storage = getStorage(app)
 
 
 const UploadSong = () => {
+  const { token } = useSelector(store => store.userDetails)
   const [isUploading, setIsuploading] = useState({ songCover: false, song: false, })
   const [songprogressValue, setsongProgressValue] = useState(0)
   const [sonCovergprogressValue, setCoversongProgressValue] = useState(0)
-  
 
-  
+
+
 
   const [state, setState] = useState({ songCover: '', song: '' })
-  const [songDetails, setSongDetails] = useState({ img: '', url: '', name:'', artist: '' })
+  const [songDetails, setSongDetails] = useState({ img: '', url: '', name: '', artist: '' })
 
-  const  handleChange = (e)=>{
-    setSongDetails({...songDetails,[e.target.name]:e.target.value})
+  const handleChange = (e) => {
+    setSongDetails({ ...songDetails, [e.target.name]: e.target.value })
   }
-  
+
 
   const deleteFile = (fileName) => {
     console.log(fileName)
@@ -41,7 +43,7 @@ const UploadSong = () => {
       setIsuploading({ ...isUploading, [fileName]: false })
 
       fileName === 'songCover' ? songDetails.img = null : songDetails.url = null
-      fileName==='songCover'?setState({...state,songCover:''}):setState({...state,song:''})
+      fileName === 'songCover' ? setState({ ...state, songCover: '' }) : setState({ ...state, song: '' })
 
     }).catch((err) => {
       setIsuploading({ ...isUploading, [fileName]: false })
@@ -67,7 +69,7 @@ const UploadSong = () => {
     const uploadTask = uploadBytesResumable(storageRef, e.target.files[0], metadata)
     uploadTask.on('state_changed', (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      
+
       e.target.name === 'songCover' ? setCoversongProgressValue(progress) : setsongProgressValue(progress)
 
     }, (error) => {
@@ -82,29 +84,29 @@ const UploadSong = () => {
 
 
           setState({ ...state, [e.target.name]: downloadURL })
-          e.target.name==='songCover'?setIsuploading({...isUploading,songCover:false}):setIsuploading({...isUploading,song:false})
-    
+          e.target.name === 'songCover' ? setIsuploading({ ...isUploading, songCover: false }) : setIsuploading({ ...isUploading, song: false })
+
         });
       })
 
   }
-  
 
-  const submitSong = async()=>{
-       if(!songDetails.img||!songDetails.url){
-        alert('please provide songCover and song both')
-        return
-       }
-       try {
-        const res=  await saveSong(songDetails)
+
+  const submitSong = async () => {
+    if (!songDetails.img || !songDetails.url) {
+      alert('please provide songCover and song both')
+      return
+    }
+    try {
+      const res = await saveSong(songDetails, token)
       console.log(res)
-      setSongDetails({ img: '', url: '', name:'', artist: '' })
-      setState({ songCover: false, song: false,})
-       } catch (error) {
-        console.log(error)
-       }
-      
-      
+      setSongDetails({ img: '', url: '', name: '', artist: '' })
+      setState({ songCover: false, song: false, })
+    } catch (error) {
+      console.log(error)
+    }
+
+
   }
 
 
@@ -113,7 +115,7 @@ const UploadSong = () => {
 
     <div>
       <div className='pt-8 mb-4 text-3xl  pl-5 font-bold text-red-600'>
-      <h1 >Upload New Songs </h1>
+        <h1 >Upload New Songs </h1>
       </div>
       <div className='grid pb-2 pt-2 grid-cols-2 w  h-[50vh]  gap-2 bg-slate-200  '>
 
@@ -149,7 +151,7 @@ const UploadSong = () => {
 
       <div className=' flex justify-evenly text-lg '>
         <div className='space-x-2 '>
-          <label  htmlFor="songName" className='font-semibold'>Song Name</label>
+          <label htmlFor="songName" className='font-semibold'>Song Name</label>
           <input id='songName' name='name' type="text" className='pl-1' value={songDetails.name} onChange={handleChange} />
         </div>
         <div className='space-x-2'>

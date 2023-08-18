@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-// import { Input } from "@material-tailwind/react";
 import { years } from './years';
-import { getData,saveData } from '../../localStorage'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {storeUserDetails} from '../../Features/userDetailSlice'
 import Error from '../SharedComponents/Error'
 
@@ -13,10 +11,10 @@ import axios from 'axios'
 
 
 const EditProfile = ({setEditProfile}) => {
-    const { email, date, gender, country, year, month } = getData()
+    const {token,userDetails:data} = useSelector(store=>store.userDetails)
+    const { email, date, gender, country, year, month } = data
     const [userDetails, setUserDetails] = useState({ email, date, gender, country, year, month })
     const [err,setErr] = useState(null)
-     
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -45,7 +43,7 @@ const EditProfile = ({setEditProfile}) => {
     }
 
         try {
-            const token = localStorage.getItem("token")
+           
             
             const res = await axios.patch('http://localhost:5000/update', userDetails, {
           headers: {
@@ -56,8 +54,6 @@ const EditProfile = ({setEditProfile}) => {
         });
         
            dispatch(storeUserDetails(res.data.data))
-           
-           saveData(res.data.data)
            setEditProfile(false)
           } catch (error) {
               setErr(error?.response?.data?.error||error?.response?.message)
@@ -110,10 +106,10 @@ const EditProfile = ({setEditProfile}) => {
                             name='year'
                             onChange={handleNumber}
                             value={userDetails.year}
-                            className=' bg-white pl-14 border border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white' />
+                            className=' bg-white text-center border-gray-300 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg    w-full   dark:placeholder-gray-400 dark:text-white' />
 
 
-                        <select id="month" name='month' defaultValue={month} className="bg-white border h-10  overflow-y-scroll border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white  ">
+                        <select id="month" name='month' defaultValue={month} className="bg-white border h-10  overflow-y-scroll border-gray-300  text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full text-center  dark:placeholder-gray-400 dark:text-white " onChange={handleChange}>
                             <option value={month} className='capitalize'>{month}</option>
                             {years.map((item, index) => {
                                 if (item !== month) return <option key={index} className='capitalize px-5' value={item} >{item}</option>
@@ -127,7 +123,7 @@ const EditProfile = ({setEditProfile}) => {
                             id='Day'
                             name='date'
                             onChange={handleNumber}
-                            className=' bg-white border border-gray-300 pl-14 text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white'
+                            className=' bg-white border border-gray-300  text-center text-gray-900 outline-gray-500 text-sm font-semibold rounded-lg   block w-full p-2.5   dark:placeholder-gray-400 dark:text-white'
                             value={userDetails.date} />
 
 

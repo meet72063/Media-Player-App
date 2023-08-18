@@ -21,7 +21,6 @@ const creatUser = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ status: "successful", token });
 };
 
-
 //login
 const logIn = async (req, res) => {
   const { password, email } = req.body;
@@ -53,7 +52,6 @@ const logIn = async (req, res) => {
     .json({ status: "successful", token, data: user._doc });
 };
 
-
 //Delete user
 const Delete = async (req, res) => {
   const {
@@ -74,7 +72,6 @@ const Delete = async (req, res) => {
     .json({ status: "success", message: "user has been Deleted successfully" });
 };
 
-
 //Update user
 const Update = async (req, res) => {
   const {
@@ -93,15 +90,12 @@ const Update = async (req, res) => {
   const user = await User.findByIdAndUpdate({ _id: userId }, req.body, {
     new: true,
   }).select("-password");
-  res
-    .status(StatusCodes.OK)
-    .json({
-      status: "success",
-      message: "user has been updated successfully",
-      data: user,
-    });
+  res.status(StatusCodes.OK).json({
+    status: "success",
+    message: "user has been updated successfully",
+    data: user,
+  });
 };
-
 
 //getting user details
 const getUser = async (req, res) => {
@@ -110,13 +104,11 @@ const getUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user });
 };
 
-
 //getting all songs
 const getSongs = async (req, res) => {
-  const songs = await Song.find({}).sort({ created_at: 1 });
+  const songs = await Song.find({}).sort({ createdAt: -1 });
   res.status(StatusCodes.OK).json({ songs });
 };
-
 
 // add/remove to/from liked songs
 const updateLikedSongs = async (req, res) => {
@@ -133,13 +125,11 @@ const updateLikedSongs = async (req, res) => {
       { likedSongs },
       { new: true }
     ).select("-password");
-    res
-      .status(StatusCodes.OK)
-      .json({
-        message: " song has been added to your liked songs ",
-        user,
-        added: true,
-      });
+    res.status(StatusCodes.OK).json({
+      message: " song has been added to your liked songs ",
+      user,
+      added: true,
+    });
     return;
   }
   const updateSong = likedSongs.filter((item) => item !== likedSongs[index]);
@@ -149,19 +139,15 @@ const updateLikedSongs = async (req, res) => {
     { new: true }
   ).select("-password");
 
-  res
-    .status(StatusCodes.OK)
-    .json({
-      message: "song has been removed from your liked songs",
-      user,
-      added: false,
-    });
+  res.status(StatusCodes.OK).json({
+    message: "song has been removed from your liked songs",
+    user,
+    added: false,
+  });
 };
-
 
 const favouriteSongs = async (req, res) => {
   const { userId } = req.user;
-  console.log(userId);
   const user = await User.updateOne(
     { _id: userId },
     {
@@ -174,7 +160,6 @@ const favouriteSongs = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ message: "songs has been added seccessfully to favourites", user });
 };
-
 
 //making playlist
 const newPlayList = async (req, res) => {
@@ -206,26 +191,21 @@ const newPlayList = async (req, res) => {
     .json({ message: "New playlist created", newplaylist });
 };
 
-
 //Deleting playlist
 const deltePlaylist = async (req, res) => {
   const {
     params: { playlistId },
     user: { userId },
   } = req;
-  console.log(req.body, req.params);
   const deltedPlaylist = await PlayList.findOneAndDelete({
     _id: playlistId,
     user: userId,
   });
-  res
-    .status(StatusCodes.OK)
-    .json({
-      message: "playlist has been deleted successfully",
-      deltedPlaylist,
-    });
+  res.status(StatusCodes.OK).json({
+    message: "playlist has been deleted successfully",
+    deltedPlaylist,
+  });
 };
-
 
 //Editing playlist
 const editPlaylist = async (req, res) => {
@@ -238,7 +218,6 @@ const editPlaylist = async (req, res) => {
     .status(StatusCodes.OK)
     .json({ message: "playlist has been updated successfully" });
 };
-
 
 // adding song to playlist
 const addSongtoPlaylist = async (req, res) => {
@@ -259,24 +238,31 @@ const addSongtoPlaylist = async (req, res) => {
 };
 
 // removing song from playlist
-const removeSongfromPlaylist = async(req,res)=>{
-  const {params:{playlistId},body:{songId}} = req
+const removeSongfromPlaylist = async (req, res) => {
+  const {
+    params: { playlistId },
+    body: { songId },
+  } = req;
   try {
-    const updatedPlaylist = await PlayList.findOneAndUpdate({_id:playlistId},
+    const updatedPlaylist = await PlayList.findOneAndUpdate(
+      { _id: playlistId },
       {
-        $pull:{
-          songs:{_id:songId}
-        }
-      },{new:true})
+        $pull: {
+          songs: { _id: songId },
+        },
+      },
+      { new: true }
+    );
 
-      res.status(StatusCodes.OK).json({playlist:updatedPlaylist,msg:"updated successfully"})
+    res
+      .status(StatusCodes.OK)
+      .json({ playlist: updatedPlaylist, msg: "updated successfully" });
   } catch (error) {
-     res.status(StatusCodes.NOT_MODIFIED).json({error,msg:'an error occured'})
+    res
+      .status(StatusCodes.NOT_MODIFIED)
+      .json({ error, msg: "an error occured" });
   }
-}
-
-
-
+};
 
 //getPlaylist
 const getPlaylist = async (req, res) => {
@@ -294,11 +280,12 @@ const getPlaylist = async (req, res) => {
   res.status(StatusCodes.OK).json({ playlist });
 };
 
-
 //all playlist by the user
 const getAllPlaylist = async (req, res) => {
   const { userId } = req.user;
-  const playlists = await PlayList.find({ user: userId });
+  const playlists = await PlayList.find({ user: userId }).sort({
+    createdAt: -1,
+  });
   if (playlists === null) {
     res
       .status(StatusCodes.NOT_FOUND)
@@ -308,13 +295,11 @@ const getAllPlaylist = async (req, res) => {
   res.status(StatusCodes.OK).json({ playlists });
 };
 
-
 //getting all the aritsts
 const getAllArtists = async (req, res) => {
   const response = await Artist.find({}).sort({ created_at: 1 });
   res.status(StatusCodes.OK).json({ artists: response, message: "successful" });
 };
-
 
 //getCatogries playlists
 const getAllCatogriesPlaylist = async (req, res) => {
@@ -326,6 +311,16 @@ const getAllCatogriesPlaylist = async (req, res) => {
   }
 };
 
+//download song
+const getDownloadSongURl = async (req, res) => {
+  const { audioUrl } = req.params;
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename=${encodeURIComponent(audioUrl)}`
+  );
+  res.setHeader("content-Type", "audio/mpeg");
+  res.status(200).json({ audioUrl });
+};
 
 module.exports = {
   creatUser,
@@ -344,5 +339,6 @@ module.exports = {
   favouriteSongs,
   getAllCatogriesPlaylist,
   addSongtoPlaylist,
-  removeSongfromPlaylist
+  removeSongfromPlaylist,
+  getDownloadSongURl,
 };

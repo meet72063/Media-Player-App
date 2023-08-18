@@ -29,7 +29,6 @@ function App() {
       <Routes>
         <Route path='/' element={<MusicPlayer />}>
           <Route index element={<Home />} />
-          <Route path='uploadSong' element={<AdminPage />} />
           <Route path='allSongs' element={<AllSongs />} />
           <Route path="artists" element={<Artists />} />
           <Route path='artist/:id' element={<ArtistPlayList />} />
@@ -38,7 +37,6 @@ function App() {
           <Route path="createPlaylist" element={<CreatePlaylist />} />
           <Route path="favourites" element={<Favourites />} />
           <Route path="catogory/:id" element={<CatogoryTracks />} />
-
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/almostDone" element={<AlmostDone />} />
@@ -46,6 +44,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/CatogorySongUpload" element={<CatogorySongs />} />
           <Route path='uploadArtistSong' element={<UploadSongtoArtist />} />
+          <Route path='uploadSong' element={<AdminPage />} />
+
+
 
         </Route>
 
